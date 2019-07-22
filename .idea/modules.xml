@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/defaultpopup-intellij-plugin.iml" filepath="$PROJECT_DIR$/defaultpopup-intellij-plugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/guipopup-intellij-plugin.iml" filepath="$PROJECT_DIR$/guipopup-intellij-plugin.iml" />
     </modules>
   </component>
 </project>

@@ -8,5 +8,5 @@
 .gradle
 out/
 *~
-defaultpopup-intellij-plugin.jar
-defaultpopup-intellij-plugin.zip
+guipopup-intellij-plugin.jar
+guipopup-intellij-plugin.zip

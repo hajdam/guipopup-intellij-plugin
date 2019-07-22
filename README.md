@@ -1,11 +1,11 @@
-Default Popup Menu - IntelliJ Plugin
-====================================
+GUI Popup & Inspect - IntelliJ Plugin
+=====================================
 
-Registers default clipboard popup menu for regular components.
+Registers popup menu and inspect function for all regular components in IDE.
 
-Homepage: https://github.com/hajdam/defaultpopup-intellij-plugin  
+Homepage: https://github.com/hajdam/guipopup-intellij-plugin  
 
-Published as: not yet
+Published as: TODO  
 
 Screenshot
 ----------

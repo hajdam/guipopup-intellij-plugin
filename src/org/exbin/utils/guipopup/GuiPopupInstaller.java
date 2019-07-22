@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.exbin.utils.defaultpopup;
+package org.exbin.utils.guipopup;
 
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.startup.StartupActivity;
@@ -22,16 +22,16 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Module installer.
  *
- * @version 0.1.0 2019/07/21
+ * @version 0.1.0 2019/07/22
  * @author ExBin Project (http://exbin.org)
  */
-public class DefaultPopupInstaller implements StartupActivity {
+public class GuiPopupInstaller implements StartupActivity {
 
     private boolean installed = false;
     @Override
     public void runActivity(@NotNull Project project) {
         if (!installed) {
-            ClipboardUtils.registerDefaultClipboardPopupMenu();
+            ClipboardUtils.registerGuiPopupMenu();
             installed = true;
         }
     }
@@ -41,7 +41,7 @@ public class DefaultPopupInstaller implements StartupActivity {
 //        WindowManager.getInstance().addListener(new WindowManagerListener() {
 //            @Override
 //            public void frameCreated(IdeFrame frame) {
-//                ClipboardUtils.registerDefaultClipboardPopupMenu();
+//                ClipboardUtils.registerGuiPopupMenu();
 //            }
 //
 //            @Override

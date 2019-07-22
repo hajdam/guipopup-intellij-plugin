@@ -1,20 +1,24 @@
-<idea-plugin version="2" url="https://github.com/hajdam/defaultpopup-intellij-plugin">
-    <id>org.exbin.utils.defaultpopup</id>
-    <name>Default Popup Menu</name>
+<idea-plugin version="2" url="https://github.com/hajdam/guipopup-intellij-plugin">
+    <id>org.exbin.utils.guipopup</id>
+    <name>GUI Popup &amp; Inspect</name>
     <version>0.1.0</version>
     <vendor email="hajdam@users.sf.net" url="https://exbin.org">ExBin Project</vendor>
 
     <description><![CDATA[
-<p>Registers basic popup menu in IDE itself for regular components like text fields, lists and tables to perform basic clipboard operations like cut/copy/paste/delete and select all.</p>
+<p>Registers popup menu and inspect function for all regular components in IDE.
+<ul>
+<li>Use right click or Shift-F10 to show typical popup menu on various input boxes</li>
+<li>Use Alt + Shift + Ctrl/Mac + F12 to show component inspector dialog</li>
+</ul></p>
 
 <h1>Preview</h1>
-<p><img src="https://exbin.org/images/defaultpopup-intellij-preview-0.1.0.png" alt="defaultpopup-intellij-preview"/></p>
+<p><img src="https://www.exbin.org/images/guipopup-intellij-preview-0.1.0.png" alt="guipopup-intellij-preview"/></p>
 
 <h1>License</h1>
 <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>
 
 <h1>Links</h1>
-Sources: <a href="https://github.com/hajdam/defaultpopup-intellij-plugin">https://github.com/hajdam/defaultpopup-intellij-plugin</a>
+Sources: <a href="https://github.com/hajdam/guipopup-intellij-plugin">https://github.com/hajdam/guipopup-intellij-plugin</a>
     ]]></description>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
@@ -28,7 +32,7 @@ Sources: <a href="https://github.com/hajdam/defaultpopup-intellij-plugin">https:
     </project-components>
 
     <extensions defaultExtensionNs="com.intellij">
-        <postStartupActivity implementation="org.exbin.utils.defaultpopup.DefaultPopupInstaller" /> -->
-        <!-- <preloadingActivity implementation="org.exbin.utils.defaultpopup.DefaultPopupInstaller" /> -->
+        <postStartupActivity implementation="org.exbin.utils.guipopup.GuiPopupInstaller" /> -->
+        <!-- <preloadingActivity implementation="org.exbin.utils.guipopup.GuiPopupInstaller" /> -->
     </extensions>
 </idea-plugin>

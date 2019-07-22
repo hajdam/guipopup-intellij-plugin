@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.exbin.utils.defaultpopup;
+package org.exbin.utils.guipopup;
 
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
@@ -53,8 +53,8 @@ public class ClipboardUtils {
      * Registers popup menu show for various supported components accross all
      * AWT popup menu events.
      */
-    public static void registerDefaultClipboardPopupMenu() {
-        DefaultPopupMenu.register();
+    public static void registerGuiPopupMenu() {
+        GuiPopupMenu.register();
     }
 
     /**
@@ -64,7 +64,7 @@ public class ClipboardUtils {
      * @param resourceBundle resource bundle
      * @param resourceClass resource class
      */
-    public static void registerDefaultClipboardPopupMenu(ResourceBundle resourceBundle, Class resourceClass) {
-        DefaultPopupMenu.register(resourceBundle, resourceClass);
+    public static void registerGuiPopupMenu(ResourceBundle resourceBundle, Class resourceClass) {
+        GuiPopupMenu.register(resourceBundle, resourceClass);
     }
 }

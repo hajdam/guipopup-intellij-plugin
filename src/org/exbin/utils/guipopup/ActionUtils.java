@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.exbin.utils.defaultpopup;
+package org.exbin.utils.guipopup;
 
+import com.intellij.icons.AllIcons;
 import com.intellij.openapi.util.IconLoader;
 
 import javax.swing.*;
@@ -90,10 +91,10 @@ public class ActionUtils {
             action.putValue(Action.SHORT_DESCRIPTION, bundle.getString(actionId + ACTION_SHORT_DESCRIPTION_POSTFIX));
         }
         if (bundle.containsKey(actionId + ACTION_SMALL_ICON_POSTFIX)) {
-            action.putValue(Action.SMALL_ICON, IconLoader.getIcon(bundle.getString(actionId + ACTION_SMALL_ICON_POSTFIX)));
+            action.putValue(Action.SMALL_ICON, IconLoader.getIcon(bundle.getString(actionId + ACTION_SMALL_ICON_POSTFIX), AllIcons.class));
         }
         if (bundle.containsKey(actionId + ACTION_SMALL_LARGE_POSTFIX)) {
-            action.putValue(Action.LARGE_ICON_KEY, IconLoader.getIcon(bundle.getString(actionId + ACTION_SMALL_LARGE_POSTFIX)));
+            action.putValue(Action.LARGE_ICON_KEY, IconLoader.getIcon(bundle.getString(actionId + ACTION_SMALL_LARGE_POSTFIX), AllIcons.class));
         }
     }
 
