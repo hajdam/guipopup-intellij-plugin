@@ -56,6 +56,7 @@ public class TextComponentClipboardHandler implements ClipboardActionsHandler {
 
     @Override
     public void performSelectAll() {
+        txtComp.requestFocus();
         ActionUtils.invokeTextAction(txtComp, DefaultEditorKit.selectAllAction);
     }
 
