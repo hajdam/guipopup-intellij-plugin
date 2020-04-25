@@ -1,7 +1,7 @@
 <idea-plugin version="2" url="https://github.com/hajdam/guipopup-intellij-plugin">
     <id>org.exbin.utils.guipopup</id>
     <name>GUI Popup &amp; Inspect</name>
-    <version>0.1.0</version>
+    <version>0.1.1</version>
     <vendor email="hajdam@users.sf.net" url="https://exbin.org">ExBin Project</vendor>
 
     <description><![CDATA[
@@ -12,7 +12,7 @@
 </ul></p>
 
 <h1>Preview</h1>
-<p><img src="https://www.exbin.org/images/guipopup-intellij-preview-0.1.0.png" alt="guipopup-intellij-preview"/></p>
+<p><img src="https://www.exbin.org/images/guipopup-intellij-preview-0.1.1.png" alt="guipopup-intellij-preview"/></p>
 
 <h1>License</h1>
 <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>
@@ -20,6 +20,12 @@
 <h1>Links</h1>
 Sources: <a href="https://github.com/hajdam/guipopup-intellij-plugin">https://github.com/hajdam/guipopup-intellij-plugin</a>
     ]]></description>
+
+    <change-notes><![CDATA[
+<ul><li>Added support for arrays</li>
+</ul>
+    ]]>
+    </change-notes>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
     <idea-version since-build="145.0"/>

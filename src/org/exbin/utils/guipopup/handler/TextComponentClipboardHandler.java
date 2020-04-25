@@ -23,7 +23,7 @@ import org.exbin.utils.guipopup.ClipboardActionsHandler;
 /**
  * Clipboard handler for JTextComponent.
  *
- * @version 0.1.0 2019/07/18
+ * @version 0.1.1 2020/04/25
  * @author ExBin Project (http://exbin.org)
  */
 public class TextComponentClipboardHandler implements ClipboardActionsHandler {
@@ -36,17 +36,17 @@ public class TextComponentClipboardHandler implements ClipboardActionsHandler {
 
     @Override
     public void performCut() {
-        txtComp.cut();
+        ActionUtils.invokeTextAction(txtComp, DefaultEditorKit.cutAction);
     }
 
     @Override
     public void performCopy() {
-        txtComp.copy();
+        ActionUtils.invokeTextAction(txtComp, DefaultEditorKit.copyAction);
     }
 
     @Override
     public void performPaste() {
-        txtComp.paste();
+        ActionUtils.invokeTextAction(txtComp, DefaultEditorKit.pasteAction);
     }
 
     @Override
@@ -56,8 +56,7 @@ public class TextComponentClipboardHandler implements ClipboardActionsHandler {
 
     @Override
     public void performSelectAll() {
-        txtComp.requestFocus();
-        txtComp.selectAll();
+        ActionUtils.invokeTextAction(txtComp, DefaultEditorKit.selectAllAction);
     }
 
     @Override
