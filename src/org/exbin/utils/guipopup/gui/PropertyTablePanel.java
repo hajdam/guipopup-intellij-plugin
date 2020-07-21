@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.exbin.utils.guipopup.panel;
+package org.exbin.utils.guipopup.gui;
 
 import java.awt.Component;
 import java.lang.reflect.Array;
@@ -25,7 +25,7 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
 /**
- * Panel for properties of the actual panel.
+ * Panel for properties of the actual gui.
  *
  * @version 0.1.1 2020/04/25
  * @author ExBin Project (http://exbin.org)

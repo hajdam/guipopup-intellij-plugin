@@ -58,6 +58,10 @@ public class TextComponentClipboardHandler implements ClipboardActionsHandler {
     public void performSelectAll() {
         txtComp.requestFocus();
         ActionUtils.invokeTextAction(txtComp, DefaultEditorKit.selectAllAction);
+        int docLength = txtComp.getDocument().getLength();
+        if (txtComp.getSelectionStart() > 0 || txtComp.getSelectionEnd() != docLength) {
+            txtComp.selectAll();
+        }
     }
 
     @Override

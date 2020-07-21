@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.exbin.utils.guipopup.panel;
+package org.exbin.utils.guipopup.gui;
 
 import java.awt.Component;
 import java.awt.event.ActionListener;
@@ -22,7 +22,7 @@ import javax.swing.event.ListSelectionListener;
 import org.exbin.utils.guipopup.LanguageUtils;
 
 /**
- * Inspection panel for GUI component.
+ * Inspection gui for GUI component.
  *
  * @version 0.1.0 2019/07/22
  * @author ExBin Project (http://exbin.org)

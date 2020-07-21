@@ -17,11 +17,45 @@ package org.exbin.utils.guipopup;
 
 import com.intellij.openapi.Disposable;
 
-import javax.swing.*;
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dialog;
+import java.awt.Dimension;
+import java.awt.Frame;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
+import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
+import java.net.URL;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.AbstractAction;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JDialog;
+import javax.swing.JEditorPane;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRootPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextPane;
+import javax.swing.KeyStroke;
+import javax.swing.LookAndFeel;
+import javax.swing.SwingUtilities;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.text.JTextComponent;
 
 /**
  * Utility static methods usable for windows and dialogs.
@@ -34,6 +68,23 @@ public class WindowUtils {
     private static final int BUTTON_CLICK_TIME = 150;
 
     private WindowUtils() {
+    }
+
+    public static void invokeWindow(final Window window) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                if (window instanceof JDialog) {
+                    ((JDialog) window).setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+                }   window.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                window.setVisible(true);
+            }
+        });
     }
 
     public static DialogWrapper createDialog(final JComponent component, Component parent, String dialogTitle, Dialog.ModalityType modalityType) {
@@ -95,6 +146,11 @@ public class WindowUtils {
         dialog.add(component);
         dialog.setSize(size.width + 8, size.height + 24);
         return dialog;
+    }
+
+    public static void invokeDialog(final JComponent component) {
+        JDialog dialog = createDialog(component);
+        invokeWindow(dialog);
     }
 
     public static void closeWindow(Window window) {

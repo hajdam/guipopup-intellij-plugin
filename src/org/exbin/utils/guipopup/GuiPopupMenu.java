@@ -19,16 +19,22 @@ import com.intellij.ide.IdeEventQueue;
 import com.intellij.openapi.project.ProjectManager;
 import com.intellij.openapi.wm.WindowManager;
 import com.intellij.openapi.wm.impl.IdeGlassPaneImpl;
+import org.exbin.utils.guipopup.handler.TextComponentClipboardHandler;
 import org.exbin.utils.guipopup.handler.ListClipboardHandler;
 import org.exbin.utils.guipopup.handler.TableClipboardHandler;
-import org.exbin.utils.guipopup.handler.TextComponentClipboardHandler;
-import org.exbin.utils.guipopup.panel.InspectComponentPanel;
-
-import javax.swing.*;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.DefaultEditorKit;
-import javax.swing.text.JTextComponent;
-import java.awt.*;
+import java.awt.AWTEvent;
+import java.awt.AWTException;
+import java.awt.Component;
+import java.awt.Dialog;
+import java.awt.EventQueue;
+import java.awt.Frame;
+import java.awt.KeyboardFocusManager;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.ScrollPane;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -37,6 +43,22 @@ import java.lang.reflect.Field;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.ActionMap;
+import javax.swing.JList;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
+import javax.swing.JRootPane;
+import javax.swing.JTable;
+import javax.swing.JViewport;
+import javax.swing.MenuSelectionManager;
+import javax.swing.SwingUtilities;
+import javax.swing.TransferHandler;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultEditorKit;
+import javax.swing.text.JTextComponent;
+import org.exbin.utils.guipopup.gui.InspectComponentPanel;
 
 /**
  * Utilities for default menu generation.
@@ -455,7 +477,7 @@ public class GuiPopupMenu {
     private static Component getDeepestComponent(Component parentComponent, int x, int y) {
         Component component = SwingUtilities.getDeepestComponentAt(parentComponent, x, y);
 
-        // Workaround for buggy panel
+        // Workaround for buggy gui
         if (component instanceof IdeGlassPaneImpl) {
             try {
                 Field myRootPane = component.getClass().getDeclaredField("myRootPane");

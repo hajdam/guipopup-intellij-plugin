@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.exbin.utils.guipopup.panel;
+package org.exbin.utils.guipopup.gui;
 
 import com.intellij.openapi.project.ProjectManager;
 import com.intellij.openapi.wm.WindowManager;
@@ -25,7 +25,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Properties table cell panel.
+ * Properties table cell gui.
  *
  * @version 0.1.0 2019/07/22
  * @author ExBin Project (http://exbin.org)
