@@ -26,7 +26,6 @@ import java.awt.AWTEvent;
 import java.awt.AWTException;
 import java.awt.Component;
 import java.awt.Dialog;
-import java.awt.EventQueue;
 import java.awt.Frame;
 import java.awt.KeyboardFocusManager;
 import java.awt.MouseInfo;
@@ -34,27 +33,21 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.ScrollPane;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.ActionMap;
-import javax.swing.JList;
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
-import javax.swing.JRootPane;
-import javax.swing.JTable;
-import javax.swing.JViewport;
-import javax.swing.MenuSelectionManager;
-import javax.swing.SwingUtilities;
-import javax.swing.TransferHandler;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
+import javax.annotation.ParametersAreNullableByDefault;
+import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultEditorKit;
 import javax.swing.text.JTextComponent;
@@ -63,12 +56,19 @@ import org.exbin.utils.guipopup.gui.InspectComponentPanel;
 /**
  * Utilities for default menu generation.
  *
- * @version 0.1.0 2019/07/22
+ * @version 0.1.2 2022/07/22
  * @author ExBin Project (http://exbin.org)
  */
-public class GuiPopupMenu {
+@ParametersAreNonnullByDefault
+public class DefaultPopupMenu {
 
     private final ResourceBundle resourceBundle = ResourceBundle.getBundle("org.exbin.utils.guipopup.GuiPopupMenu");
+
+    public static final String EDIT_CUT_ACTION_ID = "editCutAction";
+    public static final String EDIT_COPY_ACTION_ID = "editCopyAction";
+    public static final String EDIT_PASTE_ACTION_ID = "editPasteAction";
+    public static final String EDIT_DELETE_ACTION_ID = "editDeleteAction";
+    public static final String EDIT_SELECT_ALL_ACTION_ID = "editSelectAllAction";
 
     private ActionMap defaultTextActionMap;
     private JPopupMenu defaultPopupMenu;
@@ -80,19 +80,26 @@ public class GuiPopupMenu {
     private DefaultPopupClipboardAction defaultSelectAllAction;
     private DefaultPopupClipboardAction[] defaultTextActions;
 
-    private static GuiPopupMenu instance = null;
+    private final List<ComponentPopupEventDispatcher> clipboardEventDispatchers = new ArrayList<>();
+
+    private static DefaultPopupMenu instance = null;
+
     private boolean registered = false;
     private boolean inspectMode = false;
 //    private EventQueue systemEventQueue;
     private IdeEventQueue.EventDispatcher overriddenQueue;
     private IdeEventQueue.EventDispatcher overriddenPostQueue;
 
-    private GuiPopupMenu() {
+    private DefaultPopupMenu() {
     }
 
-    public static synchronized GuiPopupMenu getInstance() {
+    @Nonnull
+    public static synchronized DefaultPopupMenu getInstance() {
         if (instance == null) {
-            instance = new GuiPopupMenu();
+            instance = new DefaultPopupMenu();
+            UIManager.addPropertyChangeListener(evt -> {
+                updateUI();
+            });
         }
 
         return instance;
@@ -102,7 +109,7 @@ public class GuiPopupMenu {
      * Registers default popup menu to AWT.
      */
     public static void register() {
-        GuiPopupMenu defaultPopupMenu = getInstance();
+        DefaultPopupMenu defaultPopupMenu = getInstance();
         if (!defaultPopupMenu.registered) {
             defaultPopupMenu.initDefaultPopupMenu();
             defaultPopupMenu.registerToEventQueue();
@@ -116,9 +123,21 @@ public class GuiPopupMenu {
      * @param resourceClass resource class
      */
     public static void register(ResourceBundle resourceBundle, Class resourceClass) {
-        GuiPopupMenu guiPopupMenu = getInstance();
-        guiPopupMenu.initDefaultPopupMenu(resourceBundle, resourceClass);
-        guiPopupMenu.registerToEventQueue();
+        DefaultPopupMenu defaultPopupMenu = getInstance();
+        defaultPopupMenu.initDefaultPopupMenu(resourceBundle, resourceClass);
+        defaultPopupMenu.registerToEventQueue();
+    }
+
+    public static void updateUI() {
+        if (instance != null) {
+            if (instance.defaultPopupMenu != null) {
+                SwingUtilities.updateComponentTreeUI(instance.defaultPopupMenu);
+
+            }
+            if (instance.defaultEditPopupMenu != null) {
+                SwingUtilities.updateComponentTreeUI(instance.defaultEditPopupMenu);
+            }
+        }
     }
 
     private void registerToEventQueue() {
@@ -133,7 +152,7 @@ public class GuiPopupMenu {
     }
 
     public static void unregister() {
-        GuiPopupMenu defaultPopupMenu = getInstance();
+        DefaultPopupMenu defaultPopupMenu = getInstance();
         if (defaultPopupMenu.registered) {
             defaultPopupMenu.unregisterQueue();
         }
@@ -164,7 +183,7 @@ public class GuiPopupMenu {
                 setEnabled(clipboardHandler.isEditable() && clipboardHandler.isSelection());
             }
         };
-        ActionUtils.setupAction(defaultCutAction, resourceBundle, resourceClass, "editCutAction");
+        ActionUtils.setupAction(defaultCutAction, resourceBundle, resourceClass, EDIT_CUT_ACTION_ID);
         defaultCutAction.putValue(Action.ACCELERATOR_KEY, javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, ActionUtils.getMetaMask()));
         defaultCutAction.setEnabled(false);
         defaultTextActionMap.put(TransferHandler.getCutAction().getValue(Action.NAME), defaultCutAction);
@@ -180,7 +199,7 @@ public class GuiPopupMenu {
                 setEnabled(clipboardHandler.isSelection());
             }
         };
-        ActionUtils.setupAction(defaultCopyAction, resourceBundle, resourceClass, "editCopyAction");
+        ActionUtils.setupAction(defaultCopyAction, resourceBundle, resourceClass, EDIT_COPY_ACTION_ID);
         defaultCopyAction.putValue(Action.ACCELERATOR_KEY, javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, ActionUtils.getMetaMask()));
         defaultCopyAction.setEnabled(false);
         defaultTextActionMap.put(TransferHandler.getCopyAction().getValue(Action.NAME), defaultCopyAction);
@@ -196,7 +215,7 @@ public class GuiPopupMenu {
                 setEnabled(clipboardHandler.isEditable());
             }
         };
-        ActionUtils.setupAction(defaultPasteAction, resourceBundle, resourceClass, "editPasteAction");
+        ActionUtils.setupAction(defaultPasteAction, resourceBundle, resourceClass, EDIT_PASTE_ACTION_ID);
         defaultPasteAction.putValue(Action.ACCELERATOR_KEY, javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, ActionUtils.getMetaMask()));
         defaultPasteAction.setEnabled(false);
         defaultTextActionMap.put(TransferHandler.getPasteAction().getValue(Action.NAME), defaultPasteAction);
@@ -212,7 +231,7 @@ public class GuiPopupMenu {
                 setEnabled(clipboardHandler.isEditable() && clipboardHandler.isSelection());
             }
         };
-        ActionUtils.setupAction(defaultDeleteAction, resourceBundle, resourceClass, "editDeleteAction");
+        ActionUtils.setupAction(defaultDeleteAction, resourceBundle, resourceClass, EDIT_DELETE_ACTION_ID);
         defaultDeleteAction.putValue(Action.ACCELERATOR_KEY, javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
         defaultDeleteAction.setEnabled(false);
         defaultTextActionMap.put("delete", defaultDeleteAction);
@@ -228,7 +247,7 @@ public class GuiPopupMenu {
                 setEnabled(clipboardHandler.canSelectAll());
             }
         };
-        ActionUtils.setupAction(defaultSelectAllAction, resourceBundle, resourceClass, "editSelectAllAction");
+        ActionUtils.setupAction(defaultSelectAllAction, resourceBundle, resourceClass, EDIT_SELECT_ALL_ACTION_ID);
         defaultSelectAllAction.putValue(Action.ACCELERATOR_KEY, javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, ActionUtils.getMetaMask()));
         defaultTextActionMap.put("selectAll", defaultSelectAllAction);
 
@@ -308,6 +327,15 @@ public class GuiPopupMenu {
         }
     }
 
+    public void addClipboardEventDispatcher(ComponentPopupEventDispatcher dispatcher) {
+        clipboardEventDispatchers.add(dispatcher);
+    }
+
+    public void removeClipboardEventDispatcher(ComponentPopupEventDispatcher dispatcher) {
+        clipboardEventDispatchers.remove(dispatcher);
+    }
+
+    @ParametersAreNonnullByDefault
     public class PopupEventQueue implements IdeEventQueue.EventDispatcher {
 
         @Override
@@ -334,6 +362,7 @@ public class GuiPopupMenu {
         }
     }
 
+    @ParametersAreNonnullByDefault
     public class PopupEventPostQueue implements IdeEventQueue.EventDispatcher {
 
         @Override
@@ -372,7 +401,7 @@ public class GuiPopupMenu {
                         Point location = MouseInfo.getPointerInfo().getLocation();
                         robot.mouseMove(location.x, location.y);
                     } catch (AWTException ex) {
-                        Logger.getLogger(GuiPopupMenu.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(DefaultPopupMenu.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } else if (keyEvent.getKeyCode() == KeyEvent.VK_CONTEXT_MENU || (keyEvent.getKeyCode() == KeyEvent.VK_F10 && keyEvent.isShiftDown())) {
                     if (MenuSelectionManager.defaultManager().getSelectedPath().length > 0) {
@@ -418,22 +447,9 @@ public class GuiPopupMenu {
             return false;
         }
 
-//        private Component findComponentByMousePosition() {
-//            SwingUtilities.getDeepestComponentAt(mainWindow, mouseLocation.x, mouseLocation.y);
-//            Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
-////            Frame mainWindow = WindowManager.getDefault().getMainWindow();
-//            Frame mainWindow = WindowManager.getDefault().getMainWindow();
-//            Component.findUnderMouseInWindow
-//            List<Window> windows = Window.getWindows();
-//            for (Window window : windows) {
-//                Window owner = window.getOwner();
-//                SwingUtilities.getDeepestComponentAt(window., mouseLocation.x, mouseLocation.y);
-//            }
-//
-//        }
         private void activateMousePopup(MouseEvent mouseEvent, Component component, ClipboardActionsHandler clipboardHandler) {
-            for (Object action : defaultTextActions) {
-                ((DefaultPopupClipboardAction) action).setClipboardHandler(clipboardHandler);
+            for (DefaultPopupClipboardAction action : defaultTextActions) {
+                action.setClipboardHandler(clipboardHandler);
             }
 
             Point point = mouseEvent.getLocationOnScreen();
@@ -443,9 +459,9 @@ public class GuiPopupMenu {
             showPopupMenu(component, point, clipboardHandler.isEditable());
         }
 
-        private void activateKeyPopup(Component component, Point point, ClipboardActionsHandler clipboardHandler) {
-            for (Object action : defaultTextActions) {
-                ((DefaultPopupClipboardAction) action).setClipboardHandler(clipboardHandler);
+        private void activateKeyPopup(Component component, @Nullable Point point, ClipboardActionsHandler clipboardHandler) {
+            for (DefaultPopupClipboardAction action : defaultTextActions) {
+                action.setClipboardHandler(clipboardHandler);
             }
 
             if (point == null) {
@@ -467,7 +483,6 @@ public class GuiPopupMenu {
                 defaultPopupMenu.show(component, (int) point.getX(), (int) point.getY());
             }
         }
-
     }
 
     private static Component getSource(MouseEvent e) {
@@ -505,6 +520,7 @@ public class GuiPopupMenu {
     /**
      * Clipboard action for default popup menu.
      */
+    @ParametersAreNullableByDefault
     private static abstract class DefaultPopupClipboardAction extends AbstractAction {
 
         protected ClipboardActionsHandler clipboardHandler;

@@ -15,17 +15,32 @@
  */
 package org.exbin.utils.guipopup;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.awt.Component;
 
 /**
- * Listener for lazy component creations.
+ * Interface for popup event trigger dispatcher.
  *
- * @version 0.1.0 2019/07/22
+ * @version 0.2.0 2016/08/09
  * @author ExBin Project (http://exbin.org)
  */
 @ParametersAreNonnullByDefault
-public interface LazyComponentListener {
+public interface ComponentPopupEventDispatcher {
 
-    void componentCreated(Component component);
+    /**
+     * Processes event for popup trigger actions.
+     *
+     * @param mouseEvent mouse event
+     * @return true if event was processed
+     */
+    boolean dispatchMouseEvent(MouseEvent mouseEvent);
+
+    /**
+     * Processes event for popup trigger actions.
+     *
+     * @param keyEvent key event
+     * @return true if event was processed
+     */
+    boolean dispatchKeyEvent(KeyEvent keyEvent);
 }

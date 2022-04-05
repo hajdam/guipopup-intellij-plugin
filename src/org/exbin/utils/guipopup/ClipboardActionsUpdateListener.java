@@ -15,17 +15,16 @@
  */
 package org.exbin.utils.guipopup;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-import java.awt.Component;
-
 /**
- * Listener for lazy component creations.
+ * Clipboard actions update listener.
  *
- * @version 0.1.0 2019/07/22
+ * @version 0.2.0 2016/01/24
  * @author ExBin Project (http://exbin.org)
  */
-@ParametersAreNonnullByDefault
-public interface LazyComponentListener {
+public interface ClipboardActionsUpdateListener {
 
-    void componentCreated(Component component);
+    /**
+     * Notify about change in undo state.
+     */
+    void stateChanged();
 }

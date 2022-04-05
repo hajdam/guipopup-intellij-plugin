@@ -15,6 +15,9 @@
  */
 package org.exbin.utils.guipopup;
 
+import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
+import javax.swing.*;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.util.ResourceBundle;
@@ -25,6 +28,7 @@ import java.util.ResourceBundle;
  * @version 0.1.0 2019/07/18
  * @author ExBin Project (http://exbin.org)
  */
+@ParametersAreNonnullByDefault
 public class ClipboardUtils {
 
     private static Clipboard clipboard = null;
@@ -37,6 +41,7 @@ public class ClipboardUtils {
      *
      * @return clipboard clipboard instance
      */
+    @Nonnull
     public static Clipboard getClipboard() {
         if (clipboard == null) {
             try {
@@ -53,8 +58,8 @@ public class ClipboardUtils {
      * Registers popup menu show for various supported components accross all
      * AWT popup menu events.
      */
-    public static void registerGuiPopupMenu() {
-        GuiPopupMenu.register();
+    public static void registerDefaultClipboardPopupMenu() {
+        DefaultPopupMenu.register();
     }
 
     /**
@@ -64,7 +69,19 @@ public class ClipboardUtils {
      * @param resourceBundle resource bundle
      * @param resourceClass resource class
      */
-    public static void registerGuiPopupMenu(ResourceBundle resourceBundle, Class resourceClass) {
-        GuiPopupMenu.register(resourceBundle, resourceClass);
+    public static void registerDefaultClipboardPopupMenu(ResourceBundle resourceBundle, Class resourceClass) {
+        DefaultPopupMenu.register(resourceBundle, resourceClass);
+    }
+
+    public static void addComponentPopupEventDispatcher(ComponentPopupEventDispatcher dispatcher) {
+        DefaultPopupMenu.getInstance().addClipboardEventDispatcher(dispatcher);
+    }
+
+    public static void removeComponentPopupEventDispatcher(ComponentPopupEventDispatcher dispatcher) {
+        DefaultPopupMenu.getInstance().removeClipboardEventDispatcher(dispatcher);
+    }
+
+    public static void fillDefaultEditPopupMenu(JPopupMenu popupMenu, int position) {
+        DefaultPopupMenu.getInstance().fillDefaultEditPopupMenu(popupMenu, position);
     }
 }

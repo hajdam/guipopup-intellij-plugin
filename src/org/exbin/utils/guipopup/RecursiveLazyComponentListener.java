@@ -15,6 +15,7 @@
  */
 package org.exbin.utils.guipopup;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.awt.Component;
 import java.awt.Container;
 
@@ -24,6 +25,7 @@ import java.awt.Container;
  * @version 0.1.0 2019/07/22
  * @author ExBin Project (http://exbin.org)
  */
+@ParametersAreNonnullByDefault
 public class RecursiveLazyComponentListener implements LazyComponentListener {
 
     private final LazyComponentListener listener;
@@ -45,6 +47,10 @@ public class RecursiveLazyComponentListener implements LazyComponentListener {
             for (Component child : comps) {
                 fireListener(child);
             }
+        }
+
+        if (component instanceof LazyComponentsIssuable) {
+            ((LazyComponentsIssuable) component).addChildComponentListener(this);
         }
     }
 }

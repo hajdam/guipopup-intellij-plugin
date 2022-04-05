@@ -1,7 +1,7 @@
 <idea-plugin version="2" url="https://github.com/hajdam/guipopup-intellij-plugin">
     <id>org.exbin.utils.guipopup</id>
     <name>GUI Popup &amp; Inspect</name>
-    <version>0.1.1</version>
+    <version>0.1.2.snapshot</version>
     <vendor email="hajdam@users.sf.net" url="https://exbin.org">ExBin Project</vendor>
 
     <description><![CDATA[
@@ -28,17 +28,22 @@ Sources: <a href="https://github.com/hajdam/guipopup-intellij-plugin">https://gi
     </change-notes>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-    <idea-version since-build="145.0"/>
+    <idea-version since-build="211.1"/>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
     <depends>com.intellij.modules.lang</depends>
+    <depends optional="true" config-file="bined-ext.xml">org.exbin.deltahex.intellij</depends>
 
     <project-components>
     </project-components>
 
     <extensions defaultExtensionNs="com.intellij">
-        <postStartupActivity implementation="org.exbin.utils.guipopup.GuiPopupInstaller" /> -->
-        <!-- <preloadingActivity implementation="org.exbin.utils.guipopup.GuiPopupInstaller" /> -->
+        <postStartupActivity implementation="org.exbin.utils.guipopup.DefaultPopupInstaller" /> -->
+        <!-- <preloadingActivity implementation="org.exbin.utils.guipopup.DefaultPopupInstaller" /> -->
     </extensions>
+
+  <actions>
+    <!-- Add your actions here -->
+  </actions>
 </idea-plugin>

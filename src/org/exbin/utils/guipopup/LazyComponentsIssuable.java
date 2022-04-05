@@ -16,16 +16,17 @@
 package org.exbin.utils.guipopup;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.awt.Component;
 
 /**
- * Listener for lazy component creations.
+ * Interface for panels creating lazy components.
  *
- * @version 0.1.0 2019/07/22
+ * @version 0.2.1 2019/07/13
  * @author ExBin Project (http://exbin.org)
  */
 @ParametersAreNonnullByDefault
-public interface LazyComponentListener {
+public interface LazyComponentsIssuable {
 
-    void componentCreated(Component component);
+    void addChildComponentListener(LazyComponentListener listener);
+
+    void removeChildComponentListener(LazyComponentListener listener);
 }

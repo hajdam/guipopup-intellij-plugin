@@ -22,16 +22,17 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Module installer.
  *
- * @version 0.1.0 2019/07/22
  * @author ExBin Project (http://exbin.org)
+ * @version 0.1.0 2019/07/22
  */
-public class GuiPopupInstaller implements StartupActivity {
+public class DefaultPopupInstaller implements StartupActivity {
 
     private boolean installed = false;
+
     @Override
     public void runActivity(@NotNull Project project) {
         if (!installed) {
-            ClipboardUtils.registerGuiPopupMenu();
+            ClipboardUtils.registerDefaultClipboardPopupMenu();
             installed = true;
         }
     }

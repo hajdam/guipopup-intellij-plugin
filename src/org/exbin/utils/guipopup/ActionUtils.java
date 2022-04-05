@@ -19,22 +19,30 @@ import com.intellij.icons.AllIcons;
 import com.intellij.openapi.util.IconLoader;
 
 import java.awt.AWTEvent;
-import java.awt.Event;
 import java.awt.EventQueue;
-import javax.swing.Action;
-import javax.swing.ActionMap;
-import javax.swing.text.JTextComponent;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.util.Map;
 import java.util.ResourceBundle;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
+import javax.swing.Action;
+import javax.swing.ActionMap;
+import javax.swing.ButtonGroup;
+import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JMenuItem;
+import javax.swing.JRadioButtonMenuItem;
+import javax.swing.text.JTextComponent;
 
 /**
  * Some simple static methods usable for actions, menus and toolbars.
  *
- * @version 0.1.0 2019/07/18
+ * @version 0.2.1 2019/08/17
  * @author ExBin Project (http://exbin.org)
  */
+@ParametersAreNonnullByDefault
 public class ActionUtils {
 
     public static final String DIALOG_MENUITEM_EXT = "...";
@@ -63,6 +71,7 @@ public class ActionUtils {
     public static final String ACTION_SHORT_DESCRIPTION_POSTFIX = ".shortDescription";
     public static final String ACTION_SMALL_ICON_POSTFIX = ".smallIcon";
     public static final String ACTION_SMALL_LARGE_POSTFIX = ".largeIcon";
+    public static final String CYCLE_POPUP_MENU = "cyclePopupMenu";
 
     private ActionUtils() {
     }
@@ -111,13 +120,13 @@ public class ActionUtils {
     public static int getMetaMask() {
         try {
             switch (java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()) {
-                case Event.CTRL_MASK:
+                case java.awt.Event.CTRL_MASK:
                     return KeyEvent.CTRL_DOWN_MASK;
-                case Event.META_MASK:
+                case java.awt.Event.META_MASK:
                     return KeyEvent.META_DOWN_MASK;
-                case Event.SHIFT_MASK:
+                case java.awt.Event.SHIFT_MASK:
                     return KeyEvent.SHIFT_DOWN_MASK;
-                case Event.ALT_MASK:
+                case java.awt.Event.ALT_MASK:
                     return KeyEvent.ALT_DOWN_MASK;
                 default:
                     return KeyEvent.CTRL_DOWN_MASK;
@@ -141,6 +150,50 @@ public class ActionUtils {
         textActionMap.get(actionName).actionPerformed(actionEvent);
     }
 
+    @Nonnull
+    public static JMenuItem actionToMenuItem(Action action) {
+        return actionToMenuItem(action, null);
+    }
+
+    @Nonnull
+    public static JMenuItem actionToMenuItem(Action action, @Nullable Map<String, ButtonGroup> buttonGroups) {
+        JMenuItem menuItem;
+        ActionUtils.ActionType actionType = (ActionUtils.ActionType) action.getValue(ActionUtils.ACTION_TYPE);
+        if (actionType != null) {
+            switch (actionType) {
+                case CHECK: {
+                    menuItem = new JCheckBoxMenuItem(action);
+                    break;
+                }
+                case RADIO: {
+                    menuItem = new JRadioButtonMenuItem(action);
+                    String radioGroup = (String) action.getValue(ActionUtils.ACTION_RADIO_GROUP);
+                    if (buttonGroups != null) {
+                        ButtonGroup buttonGroup = buttonGroups.get(radioGroup);
+                        if (buttonGroup == null) {
+                            buttonGroup = new ButtonGroup();
+                            buttonGroups.put(radioGroup, buttonGroup);
+                        }
+                        buttonGroup.add(menuItem);
+                    }
+                    break;
+                }
+                default: {
+                    menuItem = new JMenuItem(action);
+                }
+            }
+        } else {
+            menuItem = new JMenuItem(action);
+        }
+
+        Object dialogMode = action.getValue(ActionUtils.ACTION_DIALOG_MODE);
+        if (dialogMode instanceof Boolean && ((Boolean) dialogMode)) {
+            menuItem.setText(menuItem.getText() + ActionUtils.DIALOG_MENUITEM_EXT);
+        }
+
+        return menuItem;
+    }
+
     /**
      * This method was lifted from JTextComponent.java.
      */
@@ -148,7 +201,7 @@ public class ActionUtils {
         int modifiers = 0;
         AWTEvent currentEvent = EventQueue.getCurrentEvent();
         if (currentEvent instanceof InputEvent) {
-            modifiers = ((InputEvent) currentEvent).getModifiers();
+            modifiers = ((InputEvent) currentEvent).getModifiersEx();
         } else if (currentEvent instanceof ActionEvent) {
             modifiers = ((ActionEvent) currentEvent).getModifiers();
         }
@@ -171,6 +224,10 @@ public class ActionUtils {
          * Radion type checking, where only one item in radio group can be
          * checked.
          */
-        RADIO
+        RADIO,
+        /**
+         * Action to cycle thru list of options.
+         */
+        CYCLE
     }
 }

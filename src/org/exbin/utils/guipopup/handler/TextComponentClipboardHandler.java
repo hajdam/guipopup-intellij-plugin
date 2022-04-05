@@ -15,10 +15,12 @@
  */
 package org.exbin.utils.guipopup.handler;
 
+import javax.swing.*;
 import javax.swing.text.DefaultEditorKit;
 import javax.swing.text.JTextComponent;
 import org.exbin.utils.guipopup.ActionUtils;
 import org.exbin.utils.guipopup.ClipboardActionsHandler;
+import org.exbin.utils.guipopup.ClipboardActionsUpdateListener;
 
 /**
  * Clipboard handler for JTextComponent.
@@ -56,12 +58,14 @@ public class TextComponentClipboardHandler implements ClipboardActionsHandler {
 
     @Override
     public void performSelectAll() {
-        txtComp.requestFocus();
-        ActionUtils.invokeTextAction(txtComp, DefaultEditorKit.selectAllAction);
-        int docLength = txtComp.getDocument().getLength();
-        if (txtComp.getSelectionStart() > 0 || txtComp.getSelectionEnd() != docLength) {
-            txtComp.selectAll();
-        }
+		SwingUtilities.invokeLater(() -> {
+			txtComp.requestFocus();
+			ActionUtils.invokeTextAction(txtComp, DefaultEditorKit.selectAllAction);
+			int docLength = txtComp.getDocument().getLength();
+			if (txtComp.getSelectionStart() > 0 || txtComp.getSelectionEnd() != docLength) {
+				txtComp.selectAll();
+			}
+		});
     }
 
     @Override
@@ -83,5 +87,14 @@ public class TextComponentClipboardHandler implements ClipboardActionsHandler {
     public boolean canPaste() {
         return true;
     }
-    
+
+    @Override
+    public boolean canDelete() {
+        return isSelection() && isEditable();
+    }
+
+    @Override
+    public void setUpdateListener(ClipboardActionsUpdateListener updateListener) {
+
+    }
 }

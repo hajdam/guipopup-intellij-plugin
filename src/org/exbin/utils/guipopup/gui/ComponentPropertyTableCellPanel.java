@@ -16,10 +16,6 @@
 package org.exbin.utils.guipopup.gui;
 
 import com.intellij.ide.ui.laf.darcula.ui.DarculaButtonPainter;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.exbin.utils.guipopup.GuiPopupMenu;
 import org.exbin.utils.guipopup.WindowUtils;
 
 import javax.swing.*;
@@ -28,7 +24,6 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.plaf.basic.BasicBorders;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import org.exbin.utils.guipopup.WindowUtils;
 
 /**
  * Empty property column gui with operation button.

@@ -16,6 +16,7 @@
 package org.exbin.utils.guipopup.handler;
 
 import org.exbin.utils.guipopup.ClipboardActionsHandler;
+import org.exbin.utils.guipopup.ClipboardActionsUpdateListener;
 import org.exbin.utils.guipopup.ClipboardUtils;
 
 import javax.swing.*;
@@ -91,5 +92,13 @@ public class ListClipboardHandler implements ClipboardActionsHandler {
     public boolean canPaste() {
         return true;
     }
-    
+
+    @Override
+    public boolean canDelete() {
+        return false;
+    }
+
+    @Override
+    public void setUpdateListener(ClipboardActionsUpdateListener updateListener) {
+    }
 }
