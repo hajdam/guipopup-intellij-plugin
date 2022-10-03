@@ -17,7 +17,7 @@ package org.exbin.utils.guipopup.gui;
 
 import com.intellij.openapi.project.ProjectManager;
 import com.intellij.openapi.wm.WindowManager;
-import org.exbin.utils.guipopup.WindowUtils;
+import org.exbin.framework.utils.WindowUtils;
 
 import javax.swing.*;
 import java.awt.*;

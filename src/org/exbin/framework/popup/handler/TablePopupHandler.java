@@ -13,32 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.exbin.utils.guipopup.handler;
+package org.exbin.framework.popup.handler;
 
-import org.exbin.utils.guipopup.ClipboardActionsHandler;
-import org.exbin.utils.guipopup.ClipboardActionsUpdateListener;
-import org.exbin.utils.guipopup.ClipboardUtils;
-
-import javax.swing.*;
 import java.awt.datatransfer.StringSelection;
+import javax.annotation.ParametersAreNonnullByDefault;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import org.exbin.framework.utils.ClipboardActionsHandler;
+import org.exbin.framework.utils.ClipboardActionsUpdateListener;
+import org.exbin.framework.utils.ClipboardUtils;
 
 /**
- * Clipboard handler for JTable.
+ * Popup handler for table.
  *
- * @version 0.1.0 2019/07/18
+ * @version 0.2.1 2022/05/01
  * @author ExBin Project (http://exbin.org)
  */
-public class TableClipboardHandler implements ClipboardActionsHandler {
-    
+@ParametersAreNonnullByDefault
+public class TablePopupHandler implements ClipboardActionsHandler {
+
     private final JTable tableComp;
 
-    public TableClipboardHandler(JTable tableComp) {
+    public TablePopupHandler(JTable tableComp) {
         this.tableComp = tableComp;
     }
 
     @Override
     public void performCut() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new IllegalStateException();
     }
 
     @Override
@@ -54,6 +56,7 @@ public class TableClipboardHandler implements ClipboardActionsHandler {
         } else {
             columns = tableComp.getSelectedColumns();
         }
+
         boolean empty = true;
         for (int rowIndex : rows) {
             if (!empty) {
@@ -61,6 +64,7 @@ public class TableClipboardHandler implements ClipboardActionsHandler {
             } else {
                 empty = false;
             }
+
             boolean columnEmpty = true;
             for (int columnIndex : columns) {
                 if (!columnEmpty) {
@@ -68,23 +72,25 @@ public class TableClipboardHandler implements ClipboardActionsHandler {
                 } else {
                     columnEmpty = false;
                 }
+
                 Object value = tableComp.getModel().getValueAt(rowIndex, columnIndex);
                 if (value != null) {
                     builder.append(value.toString());
                 }
             }
         }
+
         ClipboardUtils.getClipboard().setContents(new StringSelection(builder.toString()), null);
     }
 
     @Override
     public void performPaste() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new IllegalStateException();
     }
 
     @Override
     public void performDelete() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new IllegalStateException();
     }
 
     @Override
@@ -108,6 +114,11 @@ public class TableClipboardHandler implements ClipboardActionsHandler {
     }
 
     @Override
+    public void setUpdateListener(ClipboardActionsUpdateListener updateListener) {
+        // Ignore
+    }
+
+    @Override
     public boolean canPaste() {
         return true;
     }
@@ -115,10 +126,5 @@ public class TableClipboardHandler implements ClipboardActionsHandler {
     @Override
     public boolean canDelete() {
         return false;
-    }
-
-    @Override
-    public void setUpdateListener(ClipboardActionsUpdateListener updateListener) {
-
     }
 }

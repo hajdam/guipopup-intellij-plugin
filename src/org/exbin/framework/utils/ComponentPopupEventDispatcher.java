@@ -13,20 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.exbin.utils.guipopup;
+package org.exbin.framework.utils;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
- * Interface for panels creating lazy components.
+ * Interface for popup event trigger dispatcher.
  *
- * @version 0.2.1 2019/07/13
+ * @version 0.2.0 2016/08/09
  * @author ExBin Project (http://exbin.org)
  */
 @ParametersAreNonnullByDefault
-public interface LazyComponentsIssuable {
+public interface ComponentPopupEventDispatcher {
 
-    void addChildComponentListener(LazyComponentListener listener);
+    /**
+     * Processes event for popup trigger actions.
+     *
+     * @param mouseEvent mouse event
+     * @return true if event was processed
+     */
+    boolean dispatchMouseEvent(MouseEvent mouseEvent);
 
-    void removeChildComponentListener(LazyComponentListener listener);
+    /**
+     * Processes event for popup trigger actions.
+     *
+     * @param keyEvent key event
+     * @return true if event was processed
+     */
+    boolean dispatchKeyEvent(KeyEvent keyEvent);
 }

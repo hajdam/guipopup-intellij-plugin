@@ -17,22 +17,23 @@ package org.exbin.utils.guipopup;
 
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.startup.StartupActivity;
-import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
  * Module installer.
  *
  * @author ExBin Project (http://exbin.org)
- * @version 0.1.0 2019/07/22
  */
+@ParametersAreNonnullByDefault
 public class DefaultPopupInstaller implements StartupActivity {
 
     private boolean installed = false;
 
     @Override
-    public void runActivity(@NotNull Project project) {
+    public void runActivity(Project project) {
         if (!installed) {
-            ClipboardUtils.registerDefaultClipboardPopupMenu();
+            IntelliJDefaultPopupMenu.register();
             installed = true;
         }
     }

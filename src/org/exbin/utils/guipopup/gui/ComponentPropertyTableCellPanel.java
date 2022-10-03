@@ -16,8 +16,10 @@
 package org.exbin.utils.guipopup.gui;
 
 import com.intellij.ide.ui.laf.darcula.ui.DarculaButtonPainter;
-import org.exbin.utils.guipopup.WindowUtils;
+import org.exbin.framework.utils.WindowUtils;
 
+import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
@@ -28,9 +30,9 @@ import java.awt.event.ActionListener;
 /**
  * Empty property column gui with operation button.
  *
- * @version 0.2.1 2020/07/21
  * @author ExBin Project (http://exbin.org)
  */
+@ParametersAreNonnullByDefault
 public class ComponentPropertyTableCellPanel extends javax.swing.JPanel {
 
     private JComponent cellComponent;
@@ -107,6 +109,7 @@ public class ComponentPropertyTableCellPanel extends javax.swing.JPanel {
         WindowUtils.invokeDialog(new ComponentPropertyTableCellPanel());
     }
 
+    @Nonnull
     public static JLabel createEmptyCellComponent() {
         JLabel label = new JLabel() {
             @Override
@@ -126,6 +129,7 @@ public class ComponentPropertyTableCellPanel extends javax.swing.JPanel {
         editorButton.addActionListener(actionListener);
     }
 
+    @Nonnull
     public JComponent getCellComponent() {
         return cellComponent;
     }

@@ -13,18 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.exbin.utils.guipopup;
+package org.exbin.framework.utils;
 
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.util.IconLoader;
+import org.intellij.lang.annotations.MagicConstant;
 
-import java.awt.AWTEvent;
-import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
-import java.util.Map;
-import java.util.ResourceBundle;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -35,12 +29,19 @@ import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.text.JTextComponent;
+import java.awt.AWTEvent;
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 /**
  * Some simple static methods usable for actions, menus and toolbars.
  *
- * @version 0.2.1 2019/08/17
  * @author ExBin Project (http://exbin.org)
+ * @version 0.2.1 2019/08/17
  */
 @ParametersAreNonnullByDefault
 public class ActionUtils {
@@ -49,19 +50,19 @@ public class ActionUtils {
 
     /**
      * Action type like or check, radio.
-     *
+     * <p>
      * Value is ActionType.
      */
     public static final String ACTION_TYPE = "type";
     /**
      * Radio group name value.
-     *
+     * <p>
      * Value is String.
      */
     public static final String ACTION_RADIO_GROUP = "radioGroup";
     /**
      * Action mode for actions opening dialogs.
-     *
+     * <p>
      * Value is Boolean.
      */
     public static final String ACTION_DIALOG_MODE = "dialogMode";
@@ -79,8 +80,8 @@ public class ActionUtils {
     /**
      * Sets action values according to values specified by resource bundle.
      *
-     * @param action modified action
-     * @param bundle source bundle
+     * @param action   modified action
+     * @param bundle   source bundle
      * @param actionId action identifier and bundle key prefix
      */
     public static void setupAction(Action action, ResourceBundle bundle, String actionId) {
@@ -90,12 +91,12 @@ public class ActionUtils {
     /**
      * Sets action values according to values specified by resource bundle.
      *
-     * @param action modified action
-     * @param bundle source bundle
+     * @param action        modified action
+     * @param bundle        source bundle
      * @param resourceClass resourceClass
-     * @param actionId action identifier and bundle key prefix
+     * @param actionId      action identifier and bundle key prefix
      */
-    public static void setupAction(Action action, ResourceBundle bundle, Class resourceClass, String actionId) {
+    public static void setupAction(Action action, ResourceBundle bundle, Class<?> resourceClass, String actionId) {
         action.putValue(Action.NAME, bundle.getString(actionId + ACTION_NAME_POSTFIX));
         action.putValue(ACTION_ID, actionId);
 
@@ -117,6 +118,7 @@ public class ActionUtils {
      * @return down mask for meta keys
      */
     @SuppressWarnings("deprecation")
+    @MagicConstant(flagsFromClass=java.awt.event.InputEvent.class)
     public static int getMetaMask() {
         try {
             switch (java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()) {
@@ -140,7 +142,7 @@ public class ActionUtils {
      * Invokes action of given name on text component.
      *
      * @param textComponent component
-     * @param actionName action name
+     * @param actionName    action name
      */
     public static void invokeTextAction(JTextComponent textComponent, String actionName) {
         ActionMap textActionMap = textComponent.getActionMap().getParent();
@@ -197,6 +199,7 @@ public class ActionUtils {
     /**
      * This method was lifted from JTextComponent.java.
      */
+    @MagicConstant(flagsFromClass=java.awt.event.InputEvent.class)
     private static int getCurrentEventModifiers() {
         int modifiers = 0;
         AWTEvent currentEvent = EventQueue.getCurrentEvent();

@@ -13,32 +13,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.exbin.utils.guipopup;
+package org.exbin.utils.guipopup.utils;
 
 import com.intellij.openapi.ui.DialogWrapper;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.swing.*;
+import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
+import javax.swing.Action;
+import javax.swing.JComponent;
 
 /**
  * Dialog utilities.
  *
  * @author ExBin Project (http://exbin.org)
- * @version 0.2.0 2018/11/10
  */
+@ParametersAreNonnullByDefault
 public class DialogUtils {
 
-    public static final String DIALOG_MENUITEM_EXT = "...";
+    private DialogUtils() {
+    }
 
+    @Nonnull
     public static DialogWrapper createDialog(JComponent dialogPanel, String dialogTitle) {
         return new BinEdDialogWrapper(dialogPanel, dialogTitle);
     }
 
+    @Nonnull
     public static DialogWrapper createDialog(JComponent dialogPanel, String dialogTitle, JComponent focusedComponent) {
         return new BinEdDialogWrapper(dialogPanel, dialogTitle, focusedComponent);
     }
 
+    @ParametersAreNonnullByDefault
     public static class BinEdDialogWrapper extends DialogWrapper {
 
         private final JComponent dialogPanel;
@@ -68,7 +74,7 @@ public class DialogUtils {
             return dialogPanel;
         }
 
-        @NotNull
+        @Nonnull
         @Override
         protected Action[] createActions() {
             return new Action[0];

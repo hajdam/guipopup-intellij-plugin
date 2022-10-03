@@ -39,11 +39,20 @@ Sources: <a href="https://github.com/hajdam/guipopup-intellij-plugin">https://gi
     </project-components>
 
     <extensions defaultExtensionNs="com.intellij">
-        <postStartupActivity implementation="org.exbin.utils.guipopup.DefaultPopupInstaller" /> -->
+        <postStartupActivity implementation="org.exbin.utils.guipopup.DefaultPopupInstaller"/>
         <!-- <preloadingActivity implementation="org.exbin.utils.guipopup.DefaultPopupInstaller" /> -->
     </extensions>
+    <extensions defaultExtensionNs="org.exbin.deltahex.intellij">
+        <viewBinaryData implementation="org.exbin.utils.guipopup.ViewBinaryDataProvider"/>
+    </extensions>
+<!--    <extensionPoints>
+        <extensionPoint name="defaultPopupMenu" beanClass="org.exbin.utils.guipopup.api.DefaultPopupMenu"/>
+    </extensionPoints> -->
 
-  <actions>
-    <!-- Add your actions here -->
-  </actions>
+    <projectListeners>
+        <listener class="org.exbin.utils.guipopup.GuiPopupWindowListener" topic="com.intellij.openapi.wm.ex.ToolWindowManagerListener"/>
+    </projectListeners>
+    <actions>
+        <!-- Add your actions here -->
+    </actions>
 </idea-plugin>

@@ -13,19 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.exbin.utils.guipopup;
+package org.exbin.framework.popup;
 
+import java.awt.Point;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.awt.Component;
 
 /**
- * Listener for lazy component creations.
+ * Interface for text handler for visual component / context menu.
  *
- * @version 0.1.0 2019/07/22
  * @author ExBin Project (http://exbin.org)
  */
 @ParametersAreNonnullByDefault
-public interface LazyComponentListener {
+public interface PositionTextActionsHandler {
 
-    void componentCreated(Component component);
+    /**
+     * Performs copy text on given relative position to clipboard operation.
+     *
+     * @param locationOnScreen location on screen
+     */
+    void performCopyText(Point locationOnScreen);
+
+    /**
+     * Returns if true if text is selected on given relative position.
+     *
+     * @param locationOnScreen location on screen
+     * @return true if image is selected
+     */
+    boolean isTextSelected(Point locationOnScreen);
 }

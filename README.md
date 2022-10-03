@@ -18,7 +18,7 @@ Screenshot
 Features
 --------
 
- - Show popup menu with clipboard cut/copy/paste actions delete, select all and some utilities actions
+ - Show popup menu with clipboard cut/copy/paste actions delete, select-all and some utilities actions
  - Supported components JTextComponent, JList, JTable
  - Shows inspect dialog with values readable by reflections for component currently pointed on with mouse
 

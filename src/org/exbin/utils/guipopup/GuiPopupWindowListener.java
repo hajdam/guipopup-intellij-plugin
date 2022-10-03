@@ -15,16 +15,30 @@
  */
 package org.exbin.utils.guipopup;
 
-/**
- * Clipboard actions update listener.
- *
- * @version 0.2.0 2016/01/24
- * @author ExBin Project (http://exbin.org)
- */
-public interface ClipboardActionsUpdateListener {
+import com.intellij.openapi.project.Project;
+import com.intellij.openapi.wm.ToolWindowManager;
+import com.intellij.openapi.wm.ex.ToolWindowManagerListener;
 
-    /**
-     * Notify about change in undo state.
-     */
-    void stateChanged();
+import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
+
+/**
+ * Tool window manager listener.
+ *
+ * @author ExBin Project (http://exbin.org)
+ * @version 0.1.2 2022/05/14
+ */
+@ParametersAreNonnullByDefault
+public class GuiPopupWindowListener implements ToolWindowManagerListener {
+
+    private final Project project;
+
+    public GuiPopupWindowListener(Project project) {
+        this.project = project;
+    }
+
+    @Override
+    public void stateChanged(@Nonnull ToolWindowManager toolWindowManager) {
+        // handle the state change
+    }
 }

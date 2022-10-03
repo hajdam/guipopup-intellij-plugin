@@ -15,11 +15,12 @@
  */
 package org.exbin.utils.guipopup.gui;
 
-import java.awt.Component;
-import java.awt.event.ActionListener;
+import org.exbin.framework.utils.LanguageUtils;
+
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import org.exbin.utils.guipopup.LanguageUtils;
+import java.awt.Component;
+import java.awt.event.ActionListener;
 
 /**
  * Inspection gui for GUI component.
