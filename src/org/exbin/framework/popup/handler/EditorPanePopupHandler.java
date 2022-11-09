@@ -15,16 +15,20 @@
  */
 package org.exbin.framework.popup.handler;
 
-import org.exbin.framework.popup.ImageActionsHandler;
-import org.exbin.framework.popup.LinkActionsHandler;
-import org.exbin.framework.popup.PositionImageActionsHandler;
-import org.exbin.framework.popup.PositionLinkActionsHandler;
-import org.exbin.framework.utils.ActionUtils;
-import org.exbin.framework.utils.DesktopUtils;
-import org.exbin.framework.utils.ClipboardActionsHandler;
-import org.exbin.framework.utils.ClipboardActionsUpdateListener;
-import org.exbin.framework.utils.ClipboardUtils;
-
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.Shape;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Dictionary;
+import java.util.Hashtable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import javax.swing.ImageIcon;
@@ -40,20 +44,15 @@ import javax.swing.text.Position;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.html.HTML;
 import javax.swing.text.html.HTMLDocument;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.Shape;
-import java.awt.Toolkit;
-import java.awt.datatransfer.StringSelection;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Dictionary;
-import java.util.Hashtable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.exbin.framework.popup.ImageActionsHandler;
+import org.exbin.framework.popup.LinkActionsHandler;
+import org.exbin.framework.popup.PositionImageActionsHandler;
+import org.exbin.framework.popup.PositionLinkActionsHandler;
+import org.exbin.framework.utils.ActionUtils;
+import org.exbin.framework.utils.DesktopUtils;
+import org.exbin.framework.utils.ClipboardActionsHandler;
+import org.exbin.framework.utils.ClipboardActionsUpdateListener;
+import org.exbin.framework.utils.ClipboardUtils;
 
 /**
  * Popup handler for JEditorPane.
@@ -94,6 +93,7 @@ public class EditorPanePopupHandler implements ClipboardActionsHandler, LinkActi
 
     @Override
     public void performSelectAll() {
+        editorPane.requestFocusInWindow();
         editorPane.selectAll();
     }
 
