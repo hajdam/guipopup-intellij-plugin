@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,6 +15,7 @@
  */
 package org.exbin.utils.guipopup;
 
+import com.intellij.ide.AppLifecycleListener;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.startup.StartupActivity;
 
@@ -23,32 +24,31 @@ import javax.annotation.ParametersAreNonnullByDefault;
 /**
  * Module installer.
  *
- * @author ExBin Project (http://exbin.org)
+ * @author ExBin Project (https://exbin.org)
  */
 @ParametersAreNonnullByDefault
-public class DefaultPopupInstaller implements StartupActivity {
+public class DefaultPopupInstaller implements StartupActivity.DumbAware, AppLifecycleListener { /* ApplicationInitializedListener */
 
     private boolean installed = false;
 
     @Override
     public void runActivity(Project project) {
+        install();
+    }
+
+    private void install() {
         if (!installed) {
             IntelliJDefaultPopupMenu.register();
             installed = true;
         }
     }
 
-//    @Override
-//    public void preload(@NotNull ProgressIndicator indicator) {
-//        WindowManager.getInstance().addListener(new WindowManagerListener() {
-//            @Override
-//            public void frameCreated(IdeFrame frame) {
-//                ClipboardUtils.registerGuiPopupMenu();
-//            }
-//
-//            @Override
-//            public void beforeFrameReleased(IdeFrame frame) {
-//            }
-//        });
+    @Override
+    public void appStarted() {
+        install();
+    }
+
+//    public void componentsInitialized() {
+//        install();
 //    }
 }

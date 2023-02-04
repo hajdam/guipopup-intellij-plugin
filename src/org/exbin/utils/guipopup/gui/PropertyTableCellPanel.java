@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -19,6 +19,8 @@ import com.intellij.openapi.project.ProjectManager;
 import com.intellij.openapi.wm.WindowManager;
 import org.exbin.framework.utils.WindowUtils;
 
+import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -27,15 +29,16 @@ import java.awt.event.ActionListener;
 /**
  * Properties table cell gui.
  *
- * @version 0.1.0 2019/07/22
- * @author ExBin Project (http://exbin.org)
+ * @author ExBin Project (https://exbin.org)
  */
+@ParametersAreNonnullByDefault
 public class PropertyTableCellPanel extends ComponentPropertyTableCellPanel {
 
     private final String name;
+    @Nullable
     private final Object value;
 
-    public PropertyTableCellPanel(JComponent cellComponent, Object value, String name) {
+    public PropertyTableCellPanel(JComponent cellComponent, @Nullable Object value, String name) {
         super(cellComponent);
 
         this.value = value;
@@ -43,7 +46,7 @@ public class PropertyTableCellPanel extends ComponentPropertyTableCellPanel {
         init();
     }
 
-    public PropertyTableCellPanel(Object value, String name) {
+    public PropertyTableCellPanel(@Nullable Object value, String name) {
         super();
 
         this.value = value;
@@ -52,21 +55,14 @@ public class PropertyTableCellPanel extends ComponentPropertyTableCellPanel {
     }
 
     private void init() {
-        setEditorAction(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                InspectComponentPanel inspectComponentPanel = new InspectComponentPanel();
-                inspectComponentPanel.setComponent(value, name);
-                Frame mainWindow = WindowManager.getInstance().getFrame(ProjectManager.getInstance().getDefaultProject());
-                final WindowUtils.DialogWrapper dialog = WindowUtils.createDialog(inspectComponentPanel, mainWindow, "Inspect Component", Dialog.ModalityType.MODELESS);
-                inspectComponentPanel.setCloseActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        dialog.close();
-                    }
-                });
-                dialog.show();
-            }
+        setEditorAction(e -> {
+            if (value == null) return;
+            InspectComponentPanel inspectComponentPanel = new InspectComponentPanel();
+            inspectComponentPanel.setComponent(value, name);
+            Frame mainWindow = WindowManager.getInstance().getFrame(ProjectManager.getInstance().getDefaultProject());
+            final WindowUtils.DialogWrapper dialog = WindowUtils.createDialog(inspectComponentPanel, mainWindow, "Inspect Component", Dialog.ModalityType.MODELESS);
+            inspectComponentPanel.setCloseActionListener(e1 -> dialog.close());
+            dialog.show();
         });
     }
 }

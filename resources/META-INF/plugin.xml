@@ -1,4 +1,4 @@
-<idea-plugin version="2" url="https://github.com/hajdam/guipopup-intellij-plugin">
+<idea-plugin url="https://github.com/hajdam/guipopup-intellij-plugin">
     <id>org.exbin.utils.guipopup</id>
     <name>GUI Popup &amp; Inspect</name>
     <version>0.1.2.snapshot</version>
@@ -39,8 +39,8 @@ Sources: <a href="https://github.com/hajdam/guipopup-intellij-plugin">https://gi
     </project-components>
 
     <extensions defaultExtensionNs="com.intellij">
+        <!-- applicationInitializedListener implementation="org.exbin.utils.guipopup.DefaultPopupInstaller" / -->
         <postStartupActivity implementation="org.exbin.utils.guipopup.DefaultPopupInstaller"/>
-        <!-- <preloadingActivity implementation="org.exbin.utils.guipopup.DefaultPopupInstaller" /> -->
     </extensions>
     <extensions defaultExtensionNs="org.exbin.deltahex.intellij">
         <viewBinaryData implementation="org.exbin.utils.guipopup.ViewBinaryDataProvider"/>
@@ -49,8 +49,11 @@ Sources: <a href="https://github.com/hajdam/guipopup-intellij-plugin">https://gi
         <extensionPoint name="defaultPopupMenu" beanClass="org.exbin.utils.guipopup.api.DefaultPopupMenu"/>
     </extensionPoints> -->
 
+    <applicationListeners>
+        <listener class="org.exbin.utils.guipopup.DefaultPopupInstaller" topic="com.intellij.ide.AppLifecycleListener" activeInHeadlessMode="true" activeInTestMode="false"/>
+    </applicationListeners>
     <projectListeners>
-        <listener class="org.exbin.utils.guipopup.GuiPopupWindowListener" topic="com.intellij.openapi.wm.ex.ToolWindowManagerListener"/>
+        <!-- listener class="org.exbin.utils.guipopup.GuiPopupWindowListener" topic="com.intellij.openapi.wm.ex.ToolWindowManagerListener"/ -->
     </projectListeners>
     <actions>
         <!-- Add your actions here -->

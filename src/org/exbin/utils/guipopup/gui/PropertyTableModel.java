@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,14 +17,16 @@ package org.exbin.utils.guipopup.gui;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 import javax.swing.table.AbstractTableModel;
 
 /**
  * Parameters list table model for item editing.
  *
- * @version 0.1.0 2019/07/22
- * @author ExBin Project (http://exbin.org)
+ * @author ExBin Project (https://exbin.org)
  */
+@ParametersAreNonnullByDefault
 public class PropertyTableModel extends AbstractTableModel {
 
     private List<PropertyTableItem> items;
@@ -50,11 +52,13 @@ public class PropertyTableModel extends AbstractTableModel {
         return columnNames.length;
     }
 
+    @Nonnull
     @Override
     public String getColumnName(int columnIndex) {
         return columnNames[columnIndex];
     }
 
+    @Nonnull
     @Override
     public Class<?> getColumnClass(int columnIndex) {
         return getTypes()[columnIndex];
@@ -65,6 +69,7 @@ public class PropertyTableModel extends AbstractTableModel {
         return columnsEditable[columnIndex];
     }
 
+    @Nonnull
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         switch (columnIndex) {
@@ -77,6 +82,7 @@ public class PropertyTableModel extends AbstractTableModel {
         }
     }
 
+    @Nonnull
     public PropertyTableItem getRow(int rowIndex) {
         return items.get(rowIndex);
     }
@@ -99,6 +105,7 @@ public class PropertyTableModel extends AbstractTableModel {
         fireTableRowsInserted(items.size() - 1, items.size() - 1);
     }
 
+    @Nonnull
     public List<PropertyTableItem> getItems() {
         return items;
     }
@@ -107,6 +114,7 @@ public class PropertyTableModel extends AbstractTableModel {
         this.items = attributes;
     }
 
+    @Nonnull
     public Class[] getTypes() {
         return columnTypes;
     }

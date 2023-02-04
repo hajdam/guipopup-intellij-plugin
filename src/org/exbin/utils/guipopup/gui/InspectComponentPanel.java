@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,6 +17,9 @@ package org.exbin.utils.guipopup.gui;
 
 import org.exbin.framework.utils.LanguageUtils;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.Component;
@@ -25,9 +28,9 @@ import java.awt.event.ActionListener;
 /**
  * Inspection gui for GUI component.
  *
- * @version 0.1.0 2019/07/22
- * @author ExBin Project (http://exbin.org)
+ * @author ExBin Project (https://exbin.org)
  */
+@ParametersAreNonnullByDefault
 public class InspectComponentPanel extends javax.swing.JPanel {
 
     private final java.util.ResourceBundle resourceBundle = LanguageUtils.getResourceBundleByClass(InspectComponentPanel.class);
@@ -41,7 +44,7 @@ public class InspectComponentPanel extends javax.swing.JPanel {
         initComponents();
     }
 
-    public void setComponent(Object component, String componentName) {
+    public void setComponent(Object component, @Nullable String componentName) {
         this.component = component;
 
         componentClassTextField.setText(componentName == null ? "-" : componentName);
@@ -77,6 +80,7 @@ public class InspectComponentPanel extends javax.swing.JPanel {
         }
     }
 
+    @Nonnull
     private String getClassName(Class<?> clazz) {
         String name = clazz.getCanonicalName();
         if (name == null) {

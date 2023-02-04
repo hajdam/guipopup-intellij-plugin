@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -18,6 +18,7 @@ package org.exbin.utils.guipopup.gui;
 import java.awt.Component;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import javax.annotation.ParametersAreNonnullByDefault;
 import javax.swing.JComponent;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -27,9 +28,9 @@ import javax.swing.table.TableColumnModel;
 /**
  * Panel for properties of the actual gui.
  *
- * @version 0.1.1 2020/04/25
- * @author ExBin Project (http://exbin.org)
+ * @author ExBin Project (https://exbin.org)
  */
+@ParametersAreNonnullByDefault
 public class PropertyTablePanel extends javax.swing.JPanel {
 
     private final PropertyTableModel tableModel;

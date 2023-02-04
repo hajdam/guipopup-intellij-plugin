@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -29,6 +29,8 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -55,12 +57,13 @@ import org.exbin.framework.popup.handler.TextComponentPopupHandler;
 import org.exbin.framework.utils.ActionUtils;
 import org.exbin.framework.utils.ClipboardActionsHandler;
 import org.exbin.framework.utils.ComponentPopupEventDispatcher;
+import org.exbin.framework.utils.DesktopUtils;
 import org.exbin.framework.utils.LanguageUtils;
 
 /**
  * Utilities for default menu generation.
  *
- * @author ExBin Project (http://exbin.org)
+ * @author ExBin Project (https://exbin.org)
  */
 @ParametersAreNonnullByDefault
 public class DefaultPopupMenu {
@@ -361,7 +364,7 @@ public class DefaultPopupMenu {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (mouseEvent != null && clipboardHandler instanceof PositionLinkActionsHandler) {
-                    ((PositionLinkActionsHandler) clipboardHandler).performCopyLink(mouseEvent.getLocationOnScreen());
+                    ((PositionLinkActionsHandler) clipboardHandler).performOpenLink(mouseEvent.getLocationOnScreen());
                 } else {
                     ((LinkActionsHandler) clipboardHandler).performOpenLink();
                 }

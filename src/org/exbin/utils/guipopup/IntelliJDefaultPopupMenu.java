@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -59,7 +59,7 @@ import java.util.logging.Logger;
 /**
  * Utilities for default menu generation.
  *
- * @author ExBin Project (http://exbin.org)
+ * @author ExBin Project (https://exbin.org)
  */
 @ParametersAreNonnullByDefault
 public class IntelliJDefaultPopupMenu extends DefaultPopupMenu {
@@ -69,7 +69,7 @@ public class IntelliJDefaultPopupMenu extends DefaultPopupMenu {
     private static IntelliJDefaultPopupMenu instance = null;
 
     private boolean registered = false;
-    private boolean inspectMode = false;
+    private boolean inspectMode =false ;
     //    private EventQueue systemEventQueue;
     private IdeEventQueue.EventDispatcher overriddenQueue;
     private IdeEventQueue.EventDispatcher overriddenPostQueue;
@@ -108,8 +108,10 @@ public class IntelliJDefaultPopupMenu extends DefaultPopupMenu {
      */
     public static void register(ResourceBundle resourceBundle, Class<?> resourceClass) {
         IntelliJDefaultPopupMenu defaultPopupMenu = getInstance();
-        defaultPopupMenu.initDefaultPopupMenu(resourceBundle, resourceClass);
-        defaultPopupMenu.registerToEventQueue();
+        if (!defaultPopupMenu.registered) {
+            defaultPopupMenu.initDefaultPopupMenu(resourceBundle, resourceClass);
+            defaultPopupMenu.registerToEventQueue();
+        }
     }
 
 //    public static void updateUI() {
@@ -163,6 +165,9 @@ public class IntelliJDefaultPopupMenu extends DefaultPopupMenu {
                 inspectMode = false;
                 MouseEvent mouseEvent = (MouseEvent) event;
                 Component component = getSource(mouseEvent);
+                if (component == null) {
+                    return false;
+                }
                 InspectComponentPanel inspectComponentPanel = new InspectComponentPanel();
                 inspectComponentPanel.setComponent(component, null);
                 Frame mainWindow = WindowManager.getInstance().getFrame(ProjectManager.getInstance().getDefaultProject());

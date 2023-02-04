@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -30,7 +30,7 @@ import java.awt.event.ActionListener;
 /**
  * Empty property column gui with operation button.
  *
- * @author ExBin Project (http://exbin.org)
+ * @author ExBin Project (https://exbin.org)
  */
 @ParametersAreNonnullByDefault
 public class ComponentPropertyTableCellPanel extends javax.swing.JPanel {
@@ -111,14 +111,13 @@ public class ComponentPropertyTableCellPanel extends javax.swing.JPanel {
 
     @Nonnull
     public static JLabel createEmptyCellComponent() {
-        JLabel label = new JLabel() {
+        return new JLabel() {
             @Override
             public void updateUI() {
                 super.updateUI();
                 setFont(UIManager.getDefaults().getFont("TextField.font"));
             }
         };
-        return label;
     }
 
     // Variables declaration - do not modify

@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,6 +16,8 @@
 package org.exbin.utils.guipopup.gui;
 
 import java.awt.Component;
+import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -25,9 +27,9 @@ import javax.swing.text.JTextComponent;
 /**
  * Property table cell renderer.
  *
- * @version 0.1.0 2019/07/22
- * @author ExBin Project (http://exbin.org)
+ * @author ExBin Project (https://exbin.org)
  */
+@ParametersAreNonnullByDefault
 public class PropertyTableCellEditor extends DefaultCellEditor {
 
     public PropertyTableCellEditor() {
@@ -35,11 +37,12 @@ public class PropertyTableCellEditor extends DefaultCellEditor {
         setClickCountToStart(0);
     }
 
+    @Nonnull
     @Override
     public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
         Object fieldValue = ((PropertyTableItem) value).asBasicType();
         if (fieldValue == null || fieldValue instanceof String) {
-            final JTextComponent component = (JTextComponent) super.getTableCellEditorComponent(table, (String) fieldValue, isSelected, row, column);
+            final JTextComponent component = (JTextComponent) super.getTableCellEditorComponent(table, fieldValue, isSelected, row, column);
             component.setBackground(table.getBackground());
             component.setBorder(null);
             component.setEditable(false);

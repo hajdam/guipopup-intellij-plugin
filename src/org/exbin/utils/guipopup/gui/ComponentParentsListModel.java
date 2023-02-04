@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,14 +17,16 @@ package org.exbin.utils.guipopup.gui;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 import javax.swing.AbstractListModel;
 
 /**
  * Component parents list model.
  *
- * @version 0.1.0 2019/07/22
- * @author ExBin Project (http://exbin.org)
+ * @author ExBin Project (https://exbin.org)
  */
+@ParametersAreNonnullByDefault
 public class ComponentParentsListModel extends AbstractListModel<String> {
 
     private final List<RowRecord> items = new ArrayList<>();
@@ -43,6 +45,7 @@ public class ComponentParentsListModel extends AbstractListModel<String> {
         fireIntervalAdded(this, size, size);
     }
 
+    @Nonnull
     public Object getItemObject(int index) {
         return items.get(index).object;
     }
@@ -52,11 +55,13 @@ public class ComponentParentsListModel extends AbstractListModel<String> {
         return items.size();
     }
 
+    @Nonnull
     @Override
     public String getElementAt(int index) {
         return items.get(index).name;
     }
 
+    @ParametersAreNonnullByDefault
     private static class RowRecord {
 
         String name;
