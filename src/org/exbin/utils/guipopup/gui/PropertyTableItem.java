@@ -66,6 +66,11 @@ public class PropertyTableItem {
 
     @Nullable
     public Object asBasicType() {
+        return convertToBasicType(value);
+    }
+
+    @Nullable
+    public static Object convertToBasicType(@Nullable Object value) {
         if (value == null)
             return null;
 

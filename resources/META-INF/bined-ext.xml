@@ -1,2 +1,5 @@
 <idea-plugin>
+    <extensions defaultExtensionNs="org.exbin.deltahex.intellij">
+        <viewBinaryData implementation="org.exbin.utils.guipopup.ViewBinaryDataProvider"/>
+    </extensions>
 </idea-plugin>

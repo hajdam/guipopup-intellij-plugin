@@ -15,9 +15,7 @@
  */
 package org.exbin.utils.guipopup;
 
-import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.extensions.PluginDescriptor;
-import com.intellij.openapi.ui.DialogWrapper;
 import org.exbin.bined.intellij.api.BinaryViewData;
 import org.exbin.bined.intellij.api.BinaryViewHandler;
 import org.jetbrains.annotations.NotNull;
@@ -43,12 +41,6 @@ public class ViewBinaryDataProvider implements BinaryViewData {
     @Override
     public void passHandler(BinaryViewHandler handler) {
         binaryViewHandler = handler;
-
-//        ApplicationManager.getApplication().invokeLater(() -> {
-//            byte[] testData = new byte[] {0x12, 0x34, 0x56};
-//            DialogWrapper dialog = handler.createBinaryViewDialog(testData);
-//            dialog.show();
-//        });
     }
 
     @Override

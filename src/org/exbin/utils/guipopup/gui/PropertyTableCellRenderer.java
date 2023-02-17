@@ -36,13 +36,13 @@ public class PropertyTableCellRenderer implements TableCellRenderer {
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         Object fieldValue = ((PropertyTableItem) value).asBasicType();
-        if (fieldValue == null || fieldValue instanceof String) {
-            JComponent component = new JLabel(fieldValue == null ? "<null>" : (String) fieldValue);
+        if (fieldValue == null) {
+            JComponent component = new JLabel("<null>");
             component.setBackground(isSelected ? table.getSelectionBackground() : table.getBackground());
             return component;
         }
 
-        JComponent component = new JLabel(((PropertyTableItem) value).getTypeName());
+        JComponent component = new JLabel(fieldValue instanceof String ? (String) fieldValue : ((PropertyTableItem) value).getTypeName());
         PropertyTableCellPanel cellPanel = new PropertyTableCellPanel(component, null, null);
         cellPanel.setBackground(isSelected ? table.getSelectionBackground() : table.getBackground());
         cellPanel.getCellComponent().setBorder(null);

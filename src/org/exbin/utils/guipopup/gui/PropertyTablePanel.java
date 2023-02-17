@@ -26,7 +26,7 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
 /**
- * Panel for properties of the actual gui.
+ * Panel for properties of the inspected instance.
  *
  * @author ExBin Project (https://exbin.org)
  */
@@ -123,7 +123,7 @@ public class PropertyTablePanel extends javax.swing.JPanel {
             }
         }
     }
-
+    
     public boolean isShowStaticFields() {
         return showStaticFields;
     }
@@ -131,7 +131,7 @@ public class PropertyTablePanel extends javax.swing.JPanel {
     public void setShowStaticFields(boolean showStaticFields) {
         this.showStaticFields = showStaticFields;
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

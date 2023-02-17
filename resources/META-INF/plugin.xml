@@ -42,9 +42,6 @@ Sources: <a href="https://github.com/hajdam/guipopup-intellij-plugin">https://gi
         <!-- applicationInitializedListener implementation="org.exbin.utils.guipopup.DefaultPopupInstaller" / -->
         <postStartupActivity implementation="org.exbin.utils.guipopup.DefaultPopupInstaller"/>
     </extensions>
-    <extensions defaultExtensionNs="org.exbin.deltahex.intellij">
-        <viewBinaryData implementation="org.exbin.utils.guipopup.ViewBinaryDataProvider"/>
-    </extensions>
 <!--    <extensionPoints>
         <extensionPoint name="defaultPopupMenu" beanClass="org.exbin.utils.guipopup.api.DefaultPopupMenu"/>
     </extensionPoints> -->

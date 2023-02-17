@@ -29,8 +29,6 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -57,7 +55,6 @@ import org.exbin.framework.popup.handler.TextComponentPopupHandler;
 import org.exbin.framework.utils.ActionUtils;
 import org.exbin.framework.utils.ClipboardActionsHandler;
 import org.exbin.framework.utils.ComponentPopupEventDispatcher;
-import org.exbin.framework.utils.DesktopUtils;
 import org.exbin.framework.utils.LanguageUtils;
 
 /**
@@ -99,7 +96,7 @@ public class DefaultPopupMenu {
     protected DefaultPopupClipboardAction openLinkAction;
     protected DefaultPopupClipboardAction copyImageAction;
 
-    private final List<ComponentPopupEventDispatcher> clipboardEventDispatchers = new ArrayList<>();
+    protected final List<ComponentPopupEventDispatcher> clipboardEventDispatchers = new ArrayList<>();
 
     private static DefaultPopupMenu instance = null;
 
