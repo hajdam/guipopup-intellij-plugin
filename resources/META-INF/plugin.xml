@@ -1,7 +1,7 @@
 <idea-plugin url="https://github.com/hajdam/guipopup-intellij-plugin">
     <id>org.exbin.utils.guipopup</id>
     <name>GUI Popup &amp; Inspect</name>
-    <version>0.1.2.snapshot</version>
+    <version>0.1.2</version>
     <vendor email="hajdam@users.sf.net" url="https://exbin.org">ExBin Project</vendor>
 
     <description><![CDATA[
@@ -12,27 +12,29 @@
 </ul></p>
 
 <h1>Preview</h1>
-<p><img src="https://www.exbin.org/images/guipopup-intellij-preview-0.1.1.png" alt="guipopup-intellij-preview"/></p>
+<p><img src="https://www.exbin.org/images/guipopup-intellij-preview-0.1.2.png" alt="guipopup-intellij-preview"/></p>
 
 <h1>License</h1>
-<a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>
+<a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>
 
 <h1>Links</h1>
 Sources: <a href="https://github.com/hajdam/guipopup-intellij-plugin">https://github.com/hajdam/guipopup-intellij-plugin</a>
     ]]></description>
 
     <change-notes><![CDATA[
-<ul><li>Added support for arrays</li>
+<ul><li>Support for copy link/image</li>
+<li>Added plugin icon</li>
+<li>Added integration with BinEd plugin</li>
 </ul>
     ]]>
     </change-notes>
 
-    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+    <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
     <idea-version since-build="211.1"/>
 
-    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+    <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
-    <depends>com.intellij.modules.lang</depends>
+    <depends>com.intellij.modules.platform</depends>
     <depends optional="true" config-file="bined-ext.xml">org.exbin.deltahex.intellij</depends>
 
     <project-components>

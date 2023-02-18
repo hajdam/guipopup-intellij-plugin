@@ -27,7 +27,7 @@ Compiling
 
 Java Development Kit (JDK) version 8 or later is required to build this project.
 
-IntelliJ Idea platform is necessary for build of this plugin. See. http://jetbrains.org  
+IntelliJ Idea platform is necessary for build of this plugin. See. https://jetbrains.org  
 
 License
 -------

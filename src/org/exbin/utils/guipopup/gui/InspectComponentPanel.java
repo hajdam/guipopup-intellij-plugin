@@ -18,11 +18,9 @@ package org.exbin.utils.guipopup.gui;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.ActionListener;
-import java.util.Optional;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-import javax.swing.JComponent;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.event.ListSelectionEvent;
@@ -69,10 +67,18 @@ public class InspectComponentPanel extends javax.swing.JPanel {
         propertyTablePanel.setObject(component);
         instanceSplitPane.setBottomComponent(propertyTablePanel);
 
-        BinaryViewHandler binaryViewHandler = ViewBinaryDataProvider.getBinaryViewHandler();
-        BinaryData binaryData = binaryViewHandler != null ? binaryViewHandler.instanceToBinaryData(component).orElse(null) : null;
+        boolean binarySupported = false;
+        Object binaryData = null;
+        try {
+            Class.forName("org.exbin.bined.intellij.api.BinaryViewData");
+            BinaryViewHandler binaryViewHandler = ViewBinaryDataProvider.getBinaryViewHandler();
+            binaryData = binaryViewHandler != null ? binaryViewHandler.instanceToBinaryData(component).orElse(null) : null;
+            binarySupported = binaryData != null;
+        } catch (ClassNotFoundException e) {
+            // Not available
+        }
         Object basicType = PropertyTableItem.convertToBasicType(component);
-        if (basicType instanceof String || binaryData != null) {
+        if (basicType instanceof String || binarySupported) {
             JTabbedPane tabbedPane = new JTabbedPane();
             tabbedPane.add("Instance", instanceSplitPane);
             if (basicType instanceof String) {
@@ -80,8 +86,9 @@ public class InspectComponentPanel extends javax.swing.JPanel {
                 textArea.setEditable(false);
                 tabbedPane.add("Text", textArea);
             }
-            if (binaryData != null) {
-                tabbedPane.add("Binary", binaryViewHandler.createBinaryViewPanel(binaryData));
+            if (binarySupported) {
+                BinaryViewHandler binaryViewHandler = ViewBinaryDataProvider.getBinaryViewHandler();
+                tabbedPane.add("Binary", binaryViewHandler.createBinaryViewPanel((BinaryData) binaryData));
             }
             mainPanel.add(tabbedPane, BorderLayout.CENTER);
         } else {

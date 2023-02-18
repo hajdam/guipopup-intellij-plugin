@@ -1,4 +1,4 @@
-0.1.2
+0.1.2 (2023-02-18)
 - Support for copy link/image
 - Added plugin icon
 - Added integration with BinEd plugin
@@ -8,4 +8,3 @@
 
 0.1.0 (2019-07-22)
 - Released
-
