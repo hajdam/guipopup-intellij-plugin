@@ -14,6 +14,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="PROVIDED" name="dependecies" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="dependencies" level="project" />
   </component>
 </module>

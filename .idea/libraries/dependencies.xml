@@ -1,7 +1,7 @@
 <component name="libraryTable">
-  <library name="dependecies">
+  <library name="dependencies">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/lib/dependecies.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/dependencies.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
