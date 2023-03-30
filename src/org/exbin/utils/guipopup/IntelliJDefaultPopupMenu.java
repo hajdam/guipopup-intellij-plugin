@@ -19,8 +19,10 @@ import com.intellij.ide.IdeEventQueue;
 import com.intellij.openapi.project.ProjectManager;
 import com.intellij.openapi.wm.WindowManager;
 import com.intellij.openapi.wm.impl.IdeGlassPaneImpl;
+import com.intellij.ui.HyperlinkLabel;
 import org.exbin.framework.popup.DefaultPopupMenu;
 import org.exbin.framework.popup.handler.EditorPanePopupHandler;
+import org.exbin.framework.popup.handler.HyperlinkLabelPopupHandler;
 import org.exbin.framework.popup.handler.ListPopupHandler;
 import org.exbin.framework.popup.handler.TablePopupHandler;
 import org.exbin.framework.popup.handler.TextComponentPopupHandler;
@@ -221,6 +223,8 @@ public class IntelliJDefaultPopupMenu extends DefaultPopupMenu {
                     activateMousePopup(mouseEvent, component, new ListPopupHandler((JList<?>) component));
                 } else if (component instanceof JTable) {
                     activateMousePopup(mouseEvent, component, new TablePopupHandler((JTable) component));
+                } else if (component instanceof HyperlinkLabel) {
+                    activateMousePopup(mouseEvent, component, new HyperlinkLabelPopupHandler((HyperlinkLabel) component));
                 }
             }
         } else if (event.getID() == KeyEvent.KEY_PRESSED) {
