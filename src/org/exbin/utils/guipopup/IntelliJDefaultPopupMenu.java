@@ -26,6 +26,7 @@ import org.exbin.framework.popup.handler.HyperlinkLabelPopupHandler;
 import org.exbin.framework.popup.handler.ListPopupHandler;
 import org.exbin.framework.popup.handler.TablePopupHandler;
 import org.exbin.framework.popup.handler.TextComponentPopupHandler;
+import org.exbin.framework.utils.ComponentPopupEventDispatcher;
 import org.exbin.framework.utils.WindowUtils;
 import org.exbin.utils.guipopup.gui.InspectComponentPanel;
 
@@ -204,11 +205,11 @@ public class IntelliJDefaultPopupMenu extends DefaultPopupMenu {
                     return;
                 }
 
-//                for (ComponentPopupEventDispatcher dispatcher : clipboardEventDispatchers) {
-//                    if (dispatcher.dispatchMouseEvent(mouseEvent)) {
-//                        return;
-//                    }
-//                }
+                for (ComponentPopupEventDispatcher dispatcher : clipboardEventDispatchers) {
+                    if (dispatcher.dispatchMouseEvent(mouseEvent)) {
+                        return;
+                    }
+                }
 
                 Component component = getSource(mouseEvent);
                 if (component instanceof JViewport) {
@@ -245,11 +246,11 @@ public class IntelliJDefaultPopupMenu extends DefaultPopupMenu {
                     return;
                 }
 
-//                for (ComponentPopupEventDispatcher dispatcher : clipboardEventDispatchers) {
-//                    if (dispatcher.dispatchKeyEvent(keyEvent)) {
-//                        return;
-//                    }
-//                }
+                for (ComponentPopupEventDispatcher dispatcher : clipboardEventDispatchers) {
+                    if (dispatcher.dispatchKeyEvent(keyEvent)) {
+                        return;
+                    }
+                }
 
                 Component component = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
 
