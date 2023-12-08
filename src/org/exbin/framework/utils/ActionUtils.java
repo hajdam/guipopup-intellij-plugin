@@ -25,6 +25,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import javax.swing.Action;
 import javax.swing.ActionMap;
 import javax.swing.ButtonGroup;
+import javax.swing.Icon;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
@@ -34,6 +35,7 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.net.URL;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -104,10 +106,55 @@ public class ActionUtils {
             action.putValue(Action.SHORT_DESCRIPTION, bundle.getString(actionId + ACTION_SHORT_DESCRIPTION_POSTFIX));
         }
         if (bundle.containsKey(actionId + ACTION_SMALL_ICON_POSTFIX)) {
-            action.putValue(Action.SMALL_ICON, IconLoader.getIcon(bundle.getString(actionId + ACTION_SMALL_ICON_POSTFIX), AllIcons.class));
+            Icon icon = null;
+            try {
+                String imagePath = bundle.getString(actionId + ACTION_SMALL_ICON_POSTFIX);
+                switch (imagePath) {
+                    case "/actions/menu-cut.png": {
+                        icon = AllIcons.Actions.MenuCut;
+                        break;
+                    }
+                    case "/actions/copy.png": {
+                        icon = AllIcons.Actions.Copy;
+                        break;
+                    }
+                    case "/actions/menu-paste.png": {
+                        icon = AllIcons.Actions.MenuPaste;
+                        break;
+                    }
+                    case "/actions/delete.png": {
+                        icon = AllIcons.Actions.Cancel;
+                        break;
+                    }
+                    default: {
+                        icon = IconLoader.getIcon(imagePath, resourceClass);
+                    }
+                }
+            } catch (Throwable ex) {
+                // Cannot get icon, get backup
+//                URL resource = resourceClass.getResource(bundle.getString(actionId + ACTION_SMALL_ICON_POSTFIX));
+//                if (resource != null) {
+//                    icon = new javax.swing.ImageIcon(resource);
+//                }
+            }
+            if (icon != null) {
+                action.putValue(Action.SMALL_ICON, icon);
+            }
         }
         if (bundle.containsKey(actionId + ACTION_SMALL_LARGE_POSTFIX)) {
-            action.putValue(Action.LARGE_ICON_KEY, IconLoader.getIcon(bundle.getString(actionId + ACTION_SMALL_LARGE_POSTFIX), AllIcons.class));
+            Icon icon = null;
+            try {
+                icon = IconLoader.getIcon(bundle.getString(actionId + ACTION_SMALL_LARGE_POSTFIX), resourceClass);
+            } catch (Throwable ex) {
+                // Cannot get icon, get backup
+//                URL resource = resourceClass.getResource(bundle.getString(actionId + ACTION_SMALL_LARGE_POSTFIX));
+//                if (resource != null) {
+//                    icon = new javax.swing.ImageIcon(resource);
+//                }
+            }
+            if (icon != null) {
+                action.putValue(Action.LARGE_ICON_KEY, icon);
+            }
         }
     }
 

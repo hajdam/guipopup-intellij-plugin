@@ -156,7 +156,7 @@ public class IntelliJDefaultPopupMenu extends DefaultPopupMenu {
     }
 
     private void initDefaultPopupMenu() {
-        initDefaultPopupMenu(resourceBundle, this.getClass());
+        initDefaultPopupMenu(resourceBundle, DefaultPopupMenu.class);
     }
 
     @ParametersAreNonnullByDefault

@@ -4,9 +4,12 @@
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+.idea/sonarlint
 
 .gradle
 out/
 *~
 guipopup-intellij-plugin.jar
 guipopup-intellij-plugin.zip
+/.idea/dbnavigator.xml
+/.idea/jpa-buddy.xml

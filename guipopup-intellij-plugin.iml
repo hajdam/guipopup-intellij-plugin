@@ -16,4 +16,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="dependencies" level="project" />
   </component>
+  <component name="SonarLintModuleSettings">
+    <option name="uniqueId" value="20bed214-bc19-4c3d-bd91-94656312ddca" />
+  </component>
 </module>

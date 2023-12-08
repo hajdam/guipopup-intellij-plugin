@@ -1,7 +1,7 @@
 <idea-plugin url="https://github.com/hajdam/guipopup-intellij-plugin">
     <id>org.exbin.utils.guipopup</id>
     <name>GUI Popup &amp; Inspect</name>
-    <version>0.1.2</version>
+    <version>0.1.3</version>
     <vendor email="hajdam@users.sf.net" url="https://exbin.org">ExBin Project</vendor>
 
     <description><![CDATA[
@@ -12,7 +12,7 @@
 </ul></p>
 
 <h1>Preview</h1>
-<p><img src="https://www.exbin.org/images/guipopup-intellij-preview-0.1.2.png" alt="guipopup-intellij-preview"/></p>
+<p><img src="https://www.exbin.org/images/guipopup-intellij-preview-0.1.3.png" alt="guipopup-intellij-preview"/></p>
 
 <h1>License</h1>
 <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>
@@ -22,9 +22,7 @@ Sources: <a href="https://github.com/hajdam/guipopup-intellij-plugin">https://gi
     ]]></description>
 
     <change-notes><![CDATA[
-<ul><li>Support for copy link/image</li>
-<li>Added plugin icon</li>
-<li>Added integration with BinEd plugin</li>
+<ul><li>Fixes for 2023.3</li>
 </ul>
     ]]>
     </change-notes>
