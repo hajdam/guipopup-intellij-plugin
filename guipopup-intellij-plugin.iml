@@ -1,22 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module type="PLUGIN_MODULE" version="4">
-  <component name="CheckStyle-IDEA-Module">
-    <option name="configuration">
-      <map />
-    </option>
-  </component>
-  <component name="DevKit.ModuleBuildProperties" url="file://$MODULE_DIR$/resources/META-INF/plugin.xml" />
-  <component name="NewModuleRootManager" inherit-compiler-output="true">
-    <exclude-output />
-    <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/resources" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
-    </content>
-    <orderEntry type="inheritedJdk" />
-    <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="PROVIDED" name="dependencies" level="project" />
-  </component>
+<module version="4">
   <component name="SonarLintModuleSettings">
-    <option name="uniqueId" value="20bed214-bc19-4c3d-bd91-94656312ddca" />
+    <option name="uniqueId" value="e10d7bc1-a186-4aa0-a2be-1fe848d87e59" />
   </component>
 </module>

@@ -17,7 +17,12 @@ package org.exbin.utils.guipopup;
 
 import com.intellij.ide.AppLifecycleListener;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.startup.ProjectActivity;
 import com.intellij.openapi.startup.StartupActivity;
+import kotlin.Unit;
+import kotlin.coroutines.Continuation;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -27,7 +32,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
  * @author ExBin Project (https://exbin.org)
  */
 @ParametersAreNonnullByDefault
-public class DefaultPopupInstaller implements StartupActivity.DumbAware, AppLifecycleListener { /* ApplicationInitializedListener */
+public class DefaultPopupInstaller implements StartupActivity.DumbAware, AppLifecycleListener, ProjectActivity { /* ApplicationInitializedListener */
 
     private boolean installed = false;
 
@@ -48,7 +53,14 @@ public class DefaultPopupInstaller implements StartupActivity.DumbAware, AppLife
         install();
     }
 
-//    public void componentsInitialized() {
+    @Nullable
+    @Override
+    public Object execute(@NotNull Project project, @NotNull Continuation<? super Unit> continuation) {
+        runActivity(project);
+        return null;
+    }
+
+    //    public void componentsInitialized() {
 //        install();
 //    }
 }

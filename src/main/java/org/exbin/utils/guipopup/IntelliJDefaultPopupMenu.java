@@ -16,6 +16,7 @@
 package org.exbin.utils.guipopup;
 
 import com.intellij.ide.IdeEventQueue;
+import com.intellij.openapi.Disposable;
 import com.intellij.openapi.project.ProjectManager;
 import com.intellij.openapi.wm.WindowManager;
 import com.intellij.openapi.wm.impl.IdeGlassPaneImpl;
@@ -135,7 +136,7 @@ public class IntelliJDefaultPopupMenu extends DefaultPopupMenu {
 //        systemEventQueue = Toolkit.getDefaultToolkit().getSystemEventQueue();
 //        systemEventQueue.push(overriddenQueue);
         IdeEventQueue instance = IdeEventQueue.getInstance();
-        instance.addDispatcher(overriddenQueue, null);
+        instance.addDispatcher(overriddenQueue, (Disposable) null);
         instance.addPostprocessor(overriddenPostQueue, null);
         registered = true;
     }

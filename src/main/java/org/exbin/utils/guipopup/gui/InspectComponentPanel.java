@@ -25,7 +25,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.event.ListSelectionEvent;
 
-import org.exbin.auxiliary.paged_data.BinaryData;
+import org.exbin.auxiliary.binary_data.BinaryData;
 import org.exbin.bined.intellij.api.BinaryViewHandler;
 import org.exbin.framework.utils.LanguageUtils;
 import org.exbin.utils.guipopup.ViewBinaryDataProvider;
