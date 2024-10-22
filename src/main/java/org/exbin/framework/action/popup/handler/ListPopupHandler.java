@@ -13,33 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.exbin.framework.popup.handler;
+package org.exbin.framework.action.popup.handler;
 
-import com.intellij.ui.HyperlinkLabel;
-import com.intellij.ui.components.labels.LinkLabel;
-import org.exbin.framework.popup.LinkActionsHandler;
+import java.awt.datatransfer.StringSelection;
+import java.util.List;
+import javax.annotation.ParametersAreNonnullByDefault;
+import javax.swing.DefaultListSelectionModel;
+import javax.swing.JList;
 import org.exbin.framework.utils.ClipboardActionsHandler;
 import org.exbin.framework.utils.ClipboardActionsUpdateListener;
 import org.exbin.framework.utils.ClipboardUtils;
-import org.exbin.framework.utils.DesktopUtils;
-
-import javax.annotation.ParametersAreNonnullByDefault;
-import javax.swing.SwingUtilities;
-import java.awt.Point;
-import java.awt.datatransfer.StringSelection;
 
 /**
- * Popup handler for hyperlink label.
+ * Popup handler for JList.
  *
  * @author ExBin Project (https://exbin.org)
  */
 @ParametersAreNonnullByDefault
-public class HyperlinkLabelPopupHandler implements ClipboardActionsHandler, LinkActionsHandler {
+public class ListPopupHandler implements ClipboardActionsHandler {
 
-    private final HyperlinkLabel hyperlinkLabel;
+    private final JList<?> listComp;
 
-    public HyperlinkLabelPopupHandler(HyperlinkLabel hyperlinkLabel) {
-        this.hyperlinkLabel = hyperlinkLabel;
+    public ListPopupHandler(JList<?> listComp) {
+        this.listComp = listComp;
     }
 
     @Override
@@ -49,7 +45,18 @@ public class HyperlinkLabelPopupHandler implements ClipboardActionsHandler, Link
 
     @Override
     public void performCopy() {
-        throw new IllegalStateException();
+        StringBuilder builder = new StringBuilder();
+        List<?> rows = listComp.getSelectedValuesList();
+        boolean empty = true;
+        for (Object row : rows) {
+            builder.append(empty ? row.toString() : System.getProperty("line.separator") + row);
+
+            if (empty) {
+                empty = false;
+            }
+        }
+
+        ClipboardUtils.getClipboard().setContents(new StringSelection(builder.toString()), null);
     }
 
     @Override
@@ -64,12 +71,14 @@ public class HyperlinkLabelPopupHandler implements ClipboardActionsHandler, Link
 
     @Override
     public void performSelectAll() {
-        throw new IllegalStateException();
+        if (listComp.getModel().getSize() > 0) {
+            listComp.setSelectionInterval(0, listComp.getModel().getSize() - 1);
+        }
     }
 
     @Override
     public boolean isSelection() {
-        return false;
+        return listComp.isEnabled() && !listComp.isSelectionEmpty();
     }
 
     @Override
@@ -79,7 +88,7 @@ public class HyperlinkLabelPopupHandler implements ClipboardActionsHandler, Link
 
     @Override
     public boolean canSelectAll() {
-        return false;
+        return listComp.isEnabled() && listComp.getSelectionMode() != DefaultListSelectionModel.SINGLE_SELECTION && (listComp.getModel().getSize() > 0);
     }
 
     @Override
@@ -89,27 +98,11 @@ public class HyperlinkLabelPopupHandler implements ClipboardActionsHandler, Link
 
     @Override
     public boolean canPaste() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean canDelete() {
-        return false;
-    }
-
-    @Override
-    public void performCopyLink() {
-        StringSelection stringSelection = new StringSelection(hyperlinkLabel.getText());
-        ClipboardUtils.getClipboard().setContents(stringSelection, stringSelection);
-    }
-
-    @Override
-    public void performOpenLink() {
-        hyperlinkLabel.doClick();
-    }
-
-    @Override
-    public boolean isLinkSelected() {
         return true;
     }
 }

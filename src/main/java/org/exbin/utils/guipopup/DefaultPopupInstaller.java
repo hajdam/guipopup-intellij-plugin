@@ -19,8 +19,10 @@ import com.intellij.ide.AppLifecycleListener;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.startup.ProjectActivity;
 import com.intellij.openapi.startup.StartupActivity;
+import com.intellij.openapi.ui.JBPopupMenu;
 import kotlin.Unit;
 import kotlin.coroutines.Continuation;
+import org.exbin.framework.utils.UiUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -44,6 +46,7 @@ public class DefaultPopupInstaller implements StartupActivity.DumbAware, AppLife
     private void install() {
         if (!installed) {
             IntelliJDefaultPopupMenu.register();
+            UiUtils.setPopupMenuBuilder(JBPopupMenu::new);
             installed = true;
         }
     }

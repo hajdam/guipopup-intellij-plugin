@@ -25,9 +25,9 @@ Features
 Compiling
 ---------
 
-Java Development Kit (JDK) version 8 or later is required to build this project.
+Java Development Kit (JDK) version 17 or later is required to build this project.
 
-IntelliJ Idea platform is necessary for build of this plugin. See. https://jetbrains.org  
+IntelliJ Idea platform 2023.2.1 is necessary for build of this plugin. See. https://jetbrains.org  
 
 License
 -------

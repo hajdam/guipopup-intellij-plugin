@@ -13,75 +13,69 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.exbin.framework.popup.handler;
+package org.exbin.framework.action.popup.handler;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-import javax.swing.SwingUtilities;
-import javax.swing.text.DefaultEditorKit;
-import javax.swing.text.JTextComponent;
-import org.exbin.framework.utils.ActionUtils;
+import com.intellij.ui.HyperlinkLabel;
+import org.exbin.framework.action.popup.LinkActionsHandler;
 import org.exbin.framework.utils.ClipboardActionsHandler;
 import org.exbin.framework.utils.ClipboardActionsUpdateListener;
+import org.exbin.framework.utils.ClipboardUtils;
+
+import javax.annotation.ParametersAreNonnullByDefault;
+import java.awt.datatransfer.StringSelection;
 
 /**
- * Popup handler for text component.
+ * Popup handler for hyperlink label.
  *
  * @author ExBin Project (https://exbin.org)
  */
 @ParametersAreNonnullByDefault
-public class TextComponentPopupHandler implements ClipboardActionsHandler {
+public class HyperlinkLabelPopupHandler implements ClipboardActionsHandler, LinkActionsHandler {
 
-    private final JTextComponent txtComp;
+    private final HyperlinkLabel hyperlinkLabel;
 
-    public TextComponentPopupHandler(JTextComponent txtComp) {
-        this.txtComp = txtComp;
+    public HyperlinkLabelPopupHandler(HyperlinkLabel hyperlinkLabel) {
+        this.hyperlinkLabel = hyperlinkLabel;
     }
 
     @Override
     public void performCut() {
-        txtComp.cut();
+        throw new IllegalStateException();
     }
 
     @Override
     public void performCopy() {
-        txtComp.copy();
+        throw new IllegalStateException();
     }
 
     @Override
     public void performPaste() {
-        txtComp.paste();
+        throw new IllegalStateException();
     }
 
     @Override
     public void performDelete() {
-        ActionUtils.invokeTextAction(txtComp, DefaultEditorKit.deleteNextCharAction);
+        throw new IllegalStateException();
     }
 
     @Override
     public void performSelectAll() {
-        SwingUtilities.invokeLater(() -> {
-            txtComp.requestFocus();
-            ActionUtils.invokeTextAction(txtComp, DefaultEditorKit.selectAllAction);
-            int docLength = txtComp.getDocument().getLength();
-            if (txtComp.getSelectionStart() > 0 || txtComp.getSelectionEnd() != docLength) {
-                txtComp.selectAll();
-            }
-        });
+        throw new IllegalStateException();
     }
 
     @Override
     public boolean isSelection() {
-        return txtComp.isEnabled() && txtComp.getSelectionStart() != txtComp.getSelectionEnd();
+        return false;
     }
 
     @Override
     public boolean isEditable() {
-        return txtComp.isEnabled() && txtComp.isEditable();
+        return false;
     }
 
     @Override
     public boolean canSelectAll() {
-        return txtComp.isEnabled() && !txtComp.getText().isEmpty();
+        return false;
     }
 
     @Override
@@ -91,11 +85,27 @@ public class TextComponentPopupHandler implements ClipboardActionsHandler {
 
     @Override
     public boolean canPaste() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean canDelete() {
+        return false;
+    }
+
+    @Override
+    public void performCopyLink() {
+        StringSelection stringSelection = new StringSelection(hyperlinkLabel.getText());
+        ClipboardUtils.getClipboard().setContents(stringSelection, stringSelection);
+    }
+
+    @Override
+    public void performOpenLink() {
+        hyperlinkLabel.doClick();
+    }
+
+    @Override
+    public boolean isLinkSelected() {
         return true;
     }
 }

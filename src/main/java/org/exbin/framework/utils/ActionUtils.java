@@ -35,7 +35,6 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.net.URL;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -164,7 +163,6 @@ public class ActionUtils {
      * @return down mask for meta keys
      */
     @SuppressWarnings("deprecation")
-    @MagicConstant(flagsFromClass=java.awt.event.InputEvent.class)
     public static int getMetaMask() {
         try {
             switch (java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()) {
@@ -182,20 +180,6 @@ public class ActionUtils {
         } catch (java.awt.HeadlessException ex) {
             return KeyEvent.CTRL_DOWN_MASK;
         }
-    }
-
-    /**
-     * Invokes action of given name on text component.
-     *
-     * @param textComponent component
-     * @param actionName    action name
-     */
-    public static void invokeTextAction(JTextComponent textComponent, String actionName) {
-        ActionMap textActionMap = textComponent.getActionMap().getParent();
-        long eventTime = EventQueue.getMostRecentEventTime();
-        int eventMods = getCurrentEventModifiers();
-        ActionEvent actionEvent = new ActionEvent(textComponent, ActionEvent.ACTION_PERFORMED, actionName, eventTime, eventMods);
-        textActionMap.get(actionName).actionPerformed(actionEvent);
     }
 
     @Nonnull
@@ -244,6 +228,8 @@ public class ActionUtils {
 
     /**
      * This method was lifted from JTextComponent.java.
+     *
+     * @return KeyEvent modifier mask
      */
     @MagicConstant(flagsFromClass=java.awt.event.InputEvent.class)
     private static int getCurrentEventModifiers() {
@@ -258,8 +244,20 @@ public class ActionUtils {
     }
 
     /**
-     * Enumeration of action types.
+     * Invokes action of given name on text component.
+     *
+     * @param textComponent component
+     * @param actionName action name
      */
+    public static void invokeTextAction(JTextComponent textComponent, String actionName) {
+        ActionMap textActionMap = textComponent.getActionMap().getParent();
+        long eventTime = EventQueue.getMostRecentEventTime();
+        int eventMods = getCurrentEventModifiers();
+        ActionEvent actionEvent = new ActionEvent(textComponent, ActionEvent.ACTION_PERFORMED, actionName, eventTime, eventMods);
+        textActionMap.get(actionName).actionPerformed(actionEvent);
+    }
+
+     /** Enumeration of action types */
     public enum ActionType {
         /**
          * Single click / activation action.

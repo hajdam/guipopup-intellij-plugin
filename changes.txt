@@ -1,4 +1,7 @@
-0.1.4
+0.1.5
+- Minor visual update
+
+0.1.4 (2024-04-09)
 - Update for BinEd plugin 0.2.10
 
 0.1.3 (2023-12-08)
