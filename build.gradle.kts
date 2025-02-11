@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "org.exbin.utils.guipopup"
-version = "0.1.4"
+version = "0.1.5"
 
 val ideLocalPath = providers.gradleProperty("ideLocalPath").getOrElse("")
 

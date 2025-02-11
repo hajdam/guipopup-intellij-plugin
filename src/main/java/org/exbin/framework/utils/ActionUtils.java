@@ -162,24 +162,8 @@ public class ActionUtils {
      *
      * @return down mask for meta keys
      */
-    @SuppressWarnings("deprecation")
     public static int getMetaMask() {
-        try {
-            switch (java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()) {
-                case java.awt.Event.CTRL_MASK:
-                    return KeyEvent.CTRL_DOWN_MASK;
-                case java.awt.Event.META_MASK:
-                    return KeyEvent.META_DOWN_MASK;
-                case java.awt.Event.SHIFT_MASK:
-                    return KeyEvent.SHIFT_DOWN_MASK;
-                case java.awt.Event.ALT_MASK:
-                    return KeyEvent.ALT_DOWN_MASK;
-                default:
-                    return KeyEvent.CTRL_DOWN_MASK;
-            }
-        } catch (java.awt.HeadlessException ex) {
-            return KeyEvent.CTRL_DOWN_MASK;
-        }
+        return java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx();
     }
 
     @Nonnull

@@ -204,7 +204,7 @@ public class EditorPanePopupHandler implements ClipboardActionsHandler, LinkActi
         // Note: From HTMLEditorKit.LinkController.mouseMoved
         Document document = editorPane.getDocument();
         if (document instanceof HTMLDocument) {
-            int pos = editorPane.viewToModel(position);
+            int pos = editorPane.viewToModel2D(position);
             if (pos >= 0) {
                 return getLinkUrl(editorPane, pos, position.x, position.y);
             }
@@ -237,8 +237,8 @@ public class EditorPanePopupHandler implements ClipboardActionsHandler, LinkActi
                         Rectangle bounds;
                         TextUI ui = editorPane.getUI();
                         try {
-                            Shape lBounds = ui.modelToView(editorPane, caretPosition, Position.Bias.Forward);
-                            Shape rBounds = ui.modelToView(editorPane, caretPosition + 1, Position.Bias.Backward);
+                            Shape lBounds = ui.modelToView2D(editorPane, caretPosition, Position.Bias.Forward);
+                            Shape rBounds = ui.modelToView2D(editorPane, caretPosition + 1, Position.Bias.Backward);
                             bounds = lBounds.getBounds();
                             bounds.add((rBounds instanceof Rectangle) ? (Rectangle) rBounds : rBounds.getBounds());
                         } catch (BadLocationException ble) {
@@ -280,7 +280,7 @@ public class EditorPanePopupHandler implements ClipboardActionsHandler, LinkActi
     public static String hasImageSrc(JEditorPane editorPane, Point position) {
         Document document = editorPane.getDocument();
         if (document instanceof HTMLDocument) {
-            int pos = editorPane.viewToModel(position);
+            int pos = editorPane.viewToModel2D(position);
             if (pos >= 0) {
                 return EditorPanePopupHandler.hasImageSrc(editorPane, pos, position.x, position.y);
             }

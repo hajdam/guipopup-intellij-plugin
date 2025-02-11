@@ -26,6 +26,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -519,8 +520,10 @@ public class DefaultPopupMenu {
                 if (component instanceof JEditorPane) {
                     Point point;
                     try {
-                        Rectangle relativeRect = ((JEditorPane) component).modelToView(((JTextComponent) component).getCaretPosition());
-                        point = relativeRect == null ? null : new Point(relativeRect.x + relativeRect.width, relativeRect.y + relativeRect.height);
+                        Rectangle2D relativeRect = ((JEditorPane) component).modelToView2D(((JTextComponent) component).getCaretPosition());
+                        point = relativeRect == null ? null : new Point(
+                                (int) (relativeRect.getX() + relativeRect.getWidth()),
+                                (int) (relativeRect.getY() + relativeRect.getHeight()));
                     } catch (BadLocationException ex) {
                         point = null;
                     }
@@ -528,8 +531,10 @@ public class DefaultPopupMenu {
                 } else if (component instanceof JTextComponent) {
                     Point point;
                     try {
-                        Rectangle relativeRect = ((JTextComponent) component).modelToView(((JTextComponent) component).getCaretPosition());
-                        point = relativeRect == null ? null : new Point(relativeRect.x + relativeRect.width, relativeRect.y + relativeRect.height);
+                        Rectangle2D relativeRect = ((JTextComponent) component).modelToView2D(((JTextComponent) component).getCaretPosition());
+                        point = relativeRect == null ? null : new Point(
+                                (int) (relativeRect.getX() + relativeRect.getWidth()),
+                                (int) (relativeRect.getY() + relativeRect.getHeight()));
                     } catch (BadLocationException ex) {
                         point = null;
                     }

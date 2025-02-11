@@ -7,7 +7,7 @@
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
     <name>GUI Popup &amp; Inspect</name>
 
-    <version>0.1.5-SNAPSHOT</version>
+    <version>0.1.5</version>
 
     <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
     <vendor email="hajdam@users.sf.net" url="https://exbin.org">ExBin Project</vendor>
