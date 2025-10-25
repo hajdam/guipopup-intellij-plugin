@@ -25,7 +25,17 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @ParametersAreNonnullByDefault
 public interface LazyComponentsIssuable {
 
+    /**
+     * Adds component child listener.
+     *
+     * @param listener listener
+     */
     void addChildComponentListener(LazyComponentListener listener);
 
+    /**
+     * Removes component child listener.
+     *
+     * @param listener listener
+     */
     void removeChildComponentListener(LazyComponentListener listener);
 }

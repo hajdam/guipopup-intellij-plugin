@@ -19,7 +19,10 @@ import com.intellij.ide.AppLifecycleListener;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.startup.ProjectActivity;
 import com.intellij.openapi.startup.StartupActivity;
+import com.intellij.openapi.ui.JBMenuItem;
 import com.intellij.openapi.ui.JBPopupMenu;
+import com.intellij.ui.components.JBCheckBoxMenuItem;
+import com.intellij.ui.components.JBMenu;
 import kotlin.Unit;
 import kotlin.coroutines.Continuation;
 import org.exbin.framework.utils.UiUtils;
@@ -27,6 +30,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
+import javax.swing.JRadioButtonMenuItem;
 
 /**
  * Module installer.
@@ -46,7 +54,37 @@ public class DefaultPopupInstaller implements StartupActivity.DumbAware, AppLife
     private void install() {
         if (!installed) {
             IntelliJDefaultPopupMenu.register();
-            UiUtils.setPopupMenuBuilder(JBPopupMenu::new);
+            UiUtils.setMenuBuilder(new UiUtils.MenuBuilder() {
+                @NotNull
+                @Override
+                public JMenu buildMenu() {
+                    return new JBMenu();
+                }
+
+                @NotNull
+                @Override
+                public JPopupMenu buildPopupMenu() {
+                    return new JBPopupMenu();
+                }
+
+                @NotNull
+                @Override
+                public JMenuItem buildMenuItem() {
+                    return new JBMenuItem("");
+                }
+
+                @NotNull
+                @Override
+                public JCheckBoxMenuItem buildCheckBoxMenuItem() {
+                    return new JBCheckBoxMenuItem();
+                }
+
+                @NotNull
+                @Override
+                public JRadioButtonMenuItem buildRadioButtonMenuItem() {
+                    return new JRadioButtonMenuItem();
+                }
+            });
             installed = true;
         }
     }

@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.exbin.framework.action.popup.handler;
+package org.exbin.framework.menu.popup.handler;
 
 import com.intellij.ui.HyperlinkLabel;
-import org.exbin.framework.action.popup.LinkActionsHandler;
-import org.exbin.framework.utils.ClipboardActionsHandler;
-import org.exbin.framework.utils.ClipboardActionsUpdateListener;
+import org.exbin.framework.action.api.clipboard.ClipboardStateListener;
+import org.exbin.framework.action.api.clipboard.TextClipboardController;
+import org.exbin.framework.menu.popup.LinkActionsHandler;
 import org.exbin.framework.utils.ClipboardUtils;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -30,7 +30,7 @@ import java.awt.datatransfer.StringSelection;
  * @author ExBin Project (https://exbin.org)
  */
 @ParametersAreNonnullByDefault
-public class HyperlinkLabelPopupHandler implements ClipboardActionsHandler, LinkActionsHandler {
+public class HyperlinkLabelPopupHandler implements TextClipboardController, LinkActionsHandler {
 
     private final HyperlinkLabel hyperlinkLabel;
 
@@ -64,8 +64,13 @@ public class HyperlinkLabelPopupHandler implements ClipboardActionsHandler, Link
     }
 
     @Override
-    public boolean isSelection() {
+    public boolean hasSelection() {
         return false;
+    }
+
+    @Override
+    public boolean hasDataToCopy() {
+        return hasSelection();
     }
 
     @Override
@@ -79,7 +84,7 @@ public class HyperlinkLabelPopupHandler implements ClipboardActionsHandler, Link
     }
 
     @Override
-    public void setUpdateListener(ClipboardActionsUpdateListener updateListener) {
+    public void setUpdateListener(ClipboardStateListener updateListener) {
         // Ignore
     }
 
