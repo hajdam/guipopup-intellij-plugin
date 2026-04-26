@@ -1,5 +1,5 @@
 /*
- * Copyright (C) ExBin Project
+ * Copyright (C) ExBin Project, https://exbin.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,8 +38,6 @@ import javax.swing.JRadioButtonMenuItem;
 
 /**
  * Module installer.
- *
- * @author ExBin Project (https://exbin.org)
  */
 @ParametersAreNonnullByDefault
 public class DefaultPopupInstaller implements StartupActivity.DumbAware, AppLifecycleListener, ProjectActivity { /* ApplicationInitializedListener */
