@@ -20,13 +20,13 @@ import org.exbin.bined.intellij.api.BinaryViewData;
 import org.exbin.bined.intellij.api.BinaryViewHandler;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
+import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NullMarked;
 
 /**
  * View binary data provider.
  */
-@ParametersAreNonnullByDefault
+@NullMarked
 public class ViewBinaryDataProvider implements BinaryViewData {
 
     private static BinaryViewHandler binaryViewHandler = null;

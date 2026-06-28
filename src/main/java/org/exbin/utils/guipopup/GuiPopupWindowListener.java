@@ -19,13 +19,12 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.ToolWindowManager;
 import com.intellij.openapi.wm.ex.ToolWindowManagerListener;
 
-import javax.annotation.Nonnull;
-import javax.annotation.ParametersAreNonnullByDefault;
+import org.jspecify.annotations.NullMarked;
 
 /**
  * Tool window manager listener.
  */
-@ParametersAreNonnullByDefault
+@NullMarked
 public class GuiPopupWindowListener implements ToolWindowManagerListener {
 
     private final Project project;
@@ -35,7 +34,7 @@ public class GuiPopupWindowListener implements ToolWindowManagerListener {
     }
 
     @Override
-    public void stateChanged(@Nonnull ToolWindowManager toolWindowManager) {
+    public void stateChanged(ToolWindowManager toolWindowManager) {
         // handle the state change
     }
 }

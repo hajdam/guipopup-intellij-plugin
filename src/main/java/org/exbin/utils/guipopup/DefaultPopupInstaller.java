@@ -25,11 +25,11 @@ import com.intellij.ui.components.JBCheckBoxMenuItem;
 import com.intellij.ui.components.JBMenu;
 import kotlin.Unit;
 import kotlin.coroutines.Continuation;
-import org.exbin.framework.utils.UiUtils;
+import org.exbin.jaguif.utils.UiUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.ParametersAreNonnullByDefault;
+import org.jspecify.annotations.NullMarked;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -39,7 +39,7 @@ import javax.swing.JRadioButtonMenuItem;
 /**
  * Module installer.
  */
-@ParametersAreNonnullByDefault
+@NullMarked
 public class DefaultPopupInstaller implements StartupActivity.DumbAware, AppLifecycleListener, ProjectActivity { /* ApplicationInitializedListener */
 
     private boolean installed = false;

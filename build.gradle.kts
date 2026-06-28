@@ -66,5 +66,5 @@ repositories {
 
 dependencies {
     compileOnly(":dependencies")
-    compileOnly(":jsr305-2.0.1")
+    compileOnly(":jspecify-1.0.0")
 }

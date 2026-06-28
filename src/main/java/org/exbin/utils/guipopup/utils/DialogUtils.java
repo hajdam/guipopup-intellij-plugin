@@ -18,31 +18,28 @@ package org.exbin.utils.guipopup.utils;
 import com.intellij.openapi.ui.DialogWrapper;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnull;
-import javax.annotation.ParametersAreNonnullByDefault;
+import org.jspecify.annotations.NullMarked;
 import javax.swing.Action;
 import javax.swing.JComponent;
 
 /**
  * Dialog utilities.
  */
-@ParametersAreNonnullByDefault
+@NullMarked
 public class DialogUtils {
 
     private DialogUtils() {
     }
 
-    @Nonnull
     public static DialogWrapper createDialog(JComponent dialogPanel, String dialogTitle) {
         return new BinEdDialogWrapper(dialogPanel, dialogTitle);
     }
 
-    @Nonnull
     public static DialogWrapper createDialog(JComponent dialogPanel, String dialogTitle, JComponent focusedComponent) {
         return new BinEdDialogWrapper(dialogPanel, dialogTitle, focusedComponent);
     }
 
-    @ParametersAreNonnullByDefault
+    @NullMarked
     public static class BinEdDialogWrapper extends DialogWrapper {
 
         private final JComponent dialogPanel;
@@ -66,13 +63,11 @@ public class DialogUtils {
             return focusedComponent;
         }
 
-        @Nonnull
         @Override
         protected JComponent createCenterPanel() {
             return dialogPanel;
         }
 
-        @Nonnull
         @Override
         protected Action[] createActions() {
             return new Action[0];

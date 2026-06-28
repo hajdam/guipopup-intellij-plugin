@@ -21,19 +21,18 @@ import com.intellij.openapi.project.ProjectManager;
 import com.intellij.openapi.wm.WindowManager;
 import com.intellij.openapi.wm.impl.IdeGlassPaneImpl;
 import com.intellij.ui.HyperlinkLabel;
-import org.exbin.framework.menu.popup.DefaultPopupMenu;
-import org.exbin.framework.menu.popup.handler.EditorPanePopupHandler;
-import org.exbin.framework.menu.popup.handler.HyperlinkLabelPopupHandler;
-import org.exbin.framework.menu.popup.handler.ListPopupHandler;
-import org.exbin.framework.menu.popup.handler.TablePopupHandler;
-import org.exbin.framework.menu.popup.handler.TextComponentPopupHandler;
-import org.exbin.framework.utils.ComponentPopupEventDispatcher;
-import org.exbin.framework.utils.WindowUtils;
+import org.exbin.jaguif.menu.popup.DefaultPopupMenu;
+import org.exbin.jaguif.menu.popup.handler.EditorPanePopupHandler;
+import org.exbin.jaguif.menu.popup.handler.HyperlinkLabelPopupHandler;
+import org.exbin.jaguif.menu.popup.handler.ListPopupHandler;
+import org.exbin.jaguif.menu.popup.handler.TablePopupHandler;
+import org.exbin.jaguif.menu.popup.handler.TextComponentPopupHandler;
+import org.exbin.jaguif.utils.ComponentPopupEventDispatcher;
+import org.exbin.jaguif.utils.WindowUtils;
 import org.exbin.utils.guipopup.gui.InspectComponentPanel;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
+import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NullMarked;
 import javax.swing.JEditorPane;
 import javax.swing.JList;
 import javax.swing.JRootPane;
@@ -64,7 +63,7 @@ import java.util.logging.Logger;
 /**
  * Utilities for default menu generation.
  */
-@ParametersAreNonnullByDefault
+@NullMarked
 public class IntelliJDefaultPopupMenu extends DefaultPopupMenu {
 
     private final ResourceBundle resourceBundle = ResourceBundle.getBundle("org.exbin.utils.guipopup.GuiPopupMenu");
@@ -80,7 +79,6 @@ public class IntelliJDefaultPopupMenu extends DefaultPopupMenu {
     private IntelliJDefaultPopupMenu() {
     }
 
-    @Nonnull
     public static synchronized IntelliJDefaultPopupMenu getInstance() {
         if (instance == null) {
             instance = new IntelliJDefaultPopupMenu();
@@ -159,7 +157,7 @@ public class IntelliJDefaultPopupMenu extends DefaultPopupMenu {
         initDefaultPopupMenu(resourceBundle, DefaultPopupMenu.class);
     }
 
-    @ParametersAreNonnullByDefault
+    @NullMarked
     public class PopupEventQueue implements IdeEventQueue.EventDispatcher {
 
         @Override
@@ -184,7 +182,7 @@ public class IntelliJDefaultPopupMenu extends DefaultPopupMenu {
         }
     }
 
-    @ParametersAreNonnullByDefault
+    @NullMarked
     public class PopupEventPostQueue implements IdeEventQueue.EventDispatcher {
 
         @Override

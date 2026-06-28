@@ -17,19 +17,17 @@ package org.exbin.utils.guipopup.gui;
 
 import com.intellij.openapi.project.ProjectManager;
 import com.intellij.openapi.wm.WindowManager;
-import org.exbin.framework.utils.WindowUtils;
+import org.exbin.jaguif.utils.WindowUtils;
 
-import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
+import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NullMarked;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * Properties table cell gui.
  */
-@ParametersAreNonnullByDefault
+@NullMarked
 public class PropertyTableCellPanel extends ComponentPropertyTableCellPanel {
 
     private final String name;
